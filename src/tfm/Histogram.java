@@ -15,43 +15,44 @@ import jm.util.Read;
 import jm.util.View;
 
 /**
+ * El objetivo de esta clase es generar los histogramas de tono y ritmo de cada
+ * parte de cada pieza.
  *
  * @author casa
  */
-public class Parts {
+public class Histogram {
 
     public static void main(String[] args) {
-        Parts pk = new Parts();
-//
-//        pk.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_intro.mid", "KI");
-//        pk.histogram();
-//        
-//        pk = new Parts();
-//        pk.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_ritmica.mid", "KR");
-//        pk.histogram();
-//        
-//        pk.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_solo.mid", "KS");
-//        pk.histogram();
+        Histogram h = new Histogram();
+        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_intro.mid", "KI");
+        h.histogram();
 
-//        pk.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/orion_ritmica.mid", "OR");
-//        pk.process();
-//        pk.histogram();
-//
-//        pk = new Parts();
-//        pk.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/orion_solo.mid", "OS");
-//        pk.process();
-//        pk.histogram();
-//
-        pk.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_intro.mid", "TI");
-        pk.histogram();
+        h = new Histogram();
+        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_ritmica.mid", "KR");
+        h.histogram();
 
-        pk = new Parts();
-        pk.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_ritmica.mid", "TR");
-        pk.histogram();
+        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_solo.mid", "KS");
+        h.histogram();
 
-        pk = new Parts();
-        pk.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_solo.mid", "TS");
-        pk.histogram();
+        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/orion_ritmica.mid", "OR");
+        h.fix();
+        h.histogram();
+
+        h = new Histogram();
+        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/orion_solo.mid", "OS");
+        h.fix();
+        h.histogram();
+
+        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_intro.mid", "TI");
+        h.histogram();
+
+        h = new Histogram();
+        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_ritmica.mid", "TR");
+        h.histogram();
+
+        h = new Histogram();
+        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_solo.mid", "TS");
+        h.histogram();
     }
 
     private Score score;
@@ -62,7 +63,7 @@ public class Parts {
         score.setTitle(title);
     }
 
-    public void process() {
+    public void fix() {
         Enumeration parts = score.getPartList().elements();
 
         while (parts.hasMoreElements()) {
@@ -76,11 +77,9 @@ public class Parts {
                 while (notes.hasMoreElements()) {
                     Note nextNote = (Note) notes.nextElement();
                     //System.out.println(nextNote);
-                    if (nextNote.getDynamic() >= 127) {
+                    if (nextNote.getDynamic() >= 127) {//fixes an array out of bounds
                         nextNote.setDynamic(126);
                     }
-                    //nextNote.setDynamic(nextNote.getDynamic() - 1);
-
                 }//notes
             }//phrases
         }//parts
