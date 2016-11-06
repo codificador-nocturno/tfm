@@ -20,6 +20,8 @@ public class Chord {
     private List<Note> notes;
 
     private Double startTime;
+    
+    private Double duration;
 
     public Chord() {
         notes = new ArrayList<>();
@@ -43,11 +45,17 @@ public class Chord {
     public String toString() {
         String s = "[";
 
+        boolean first = true;
         for (Note n : notes) {
-            s += n.getNote() + " ";
+            if (first) {
+                first = false;
+            } else {
+                s += " ";
+            }
+            s += n.getNote();
         }
 
-        return s + "] "+startTime;
+        return s + "]";
     }
 
     /**
@@ -63,4 +71,58 @@ public class Chord {
     public void setStartTime(Double startTime) {
         this.startTime = startTime;
     }
+
+    public Chord duplicate() {
+        Chord newC = new Chord();
+
+        for (Note n : notes) {
+            newC.add(n.copy());
+        }
+
+        return newC;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!obj.getClass().equals(Chord.class)) {
+            return false;
+        }
+
+        if (obj.toString().equals(toString())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isSingleNote() {
+        return notes.size() == 1;
+    }
+
+    public int[] getPitchesArray() {
+        int[] pitches = new int[notes.size()];
+
+        int i = 0;
+        for (Note n : notes) {
+            pitches[i] = n.getPitch();
+            i++;
+        }
+
+        return pitches;
+    }
+
+    /**
+     * @return the duration
+     */
+    public Double getDuration() {
+        return duration;
+    }
+
+    /**
+     * @param duration the duration to set
+     */
+    public void setDuration(Double duration) {
+        this.duration = duration;
+    }
+
 }
