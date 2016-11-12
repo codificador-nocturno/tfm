@@ -20,14 +20,14 @@ import jm.util.View;
  *
  * @author casa
  */
-public class Histogram {
+public class HistogramAnalysis {
 
     public static void main(String[] args) {
-        Histogram h = new Histogram();
+        HistogramAnalysis h = new HistogramAnalysis();
         h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_intro.mid", "KI");
         h.histogram();
 
-        h = new Histogram();
+        h = new HistogramAnalysis();
         h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_ritmica.mid", "KR");
         h.histogram();
 
@@ -38,7 +38,7 @@ public class Histogram {
         h.fix();
         h.histogram();
 
-        h = new Histogram();
+        h = new HistogramAnalysis();
         h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/orion_solo.mid", "OS");
         h.fix();
         h.histogram();
@@ -46,11 +46,11 @@ public class Histogram {
         h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_intro.mid", "TI");
         h.histogram();
 
-        h = new Histogram();
+        h = new HistogramAnalysis();
         h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_ritmica.mid", "TR");
         h.histogram();
 
-        h = new Histogram();
+        h = new HistogramAnalysis();
         h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_solo.mid", "TS");
         h.histogram();
     }

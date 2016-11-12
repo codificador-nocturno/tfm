@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tfm;
+package tfm.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import jm.constants.Scales;
 import jm.music.data.Note;
 
 /**
@@ -28,6 +29,12 @@ public class Chord {
     }
 
     public void add(Note note) {
+        //dont add duplicates
+        for(Note n:notes){
+            if(n.getPitch()==note.getPitch()){
+                return;
+            }
+        }
         notes.add(note);
         sort();
     }
@@ -95,8 +102,8 @@ public class Chord {
         return false;
     }
 
-    public boolean isSingleNote() {
-        return notes.size() == 1;
+    public int size() {
+        return notes.size();
     }
 
     public int[] getPitchesArray() {
