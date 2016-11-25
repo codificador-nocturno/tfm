@@ -5,7 +5,8 @@
  */
 package tfm;
 
-import tfm.model.Chord;
+import java.text.DecimalFormat;
+import tfm.model.chords.Chord;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -14,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
-import javax.sound.midi.MidiChannel;
 import jm.constants.Durations;
 import jm.midi.MidiUtil;
 import jm.music.data.Note;
@@ -24,6 +24,8 @@ import jm.music.data.Score;
 import jm.util.Read;
 import jm.util.View;
 import jm.util.Write;
+import tfm.model.nrt.Tonnetz;
+import tfm.model.pcst.PCSet;
 
 /**
  * El objetivo de esta clase es reducir la pista ritmica a sus acordes.
@@ -32,175 +34,216 @@ import jm.util.Write;
  */
 public class ChordsAnalysis {
 
-    public static void main(String[] args) {
-	ChordsAnalysis c = new ChordsAnalysis();
-	c.read("Metallica_To_Live_Is_To_Die_guitar_7.mid", "Chord Test!");
-	c.scan();
-	c.processChords();
-	//c.printOriginalChords();
-	c.printProcessedChords();
-	//c.writeOriginalChords();
-	//c.writeProcessedChords();
-    }
-
     private Score score;
-    private Map<Double, Chord> groups = new HashMap<>();
-    private List<Chord> originalChords;
-    private List<Chord> processedChords;
+    private Map<String, Chord> groups = new HashMap<>();
+    private Tonnetz tonnetz;
+    private DecimalFormat df;
+    private String fileName;
 
-    public ChordsAnalysis() {
-	originalChords = new ArrayList<>();
-	processedChords = new ArrayList<>();
+    public ChordsAnalysis(String fileName) {
+        this.fileName = fileName;
+        df = new DecimalFormat("#.###");
+        //tonnetz = new Tonnetz();
+        //tonnetz.print();
+        //System.out.println(tonnetz.getNode(11, 6, 2).getL().getL());
     }
 
-    public void read(String path, String title) {
-	score = new Score();
-	Read.midi(score, path);
-	score.setTitle(title);
+    public void read() {
+        score = new Score();
+        Read.midi(score, fileName + ".mid");
     }
 
-    public void scan() {
-	Enumeration parts = score.getPartList().elements();
+    public List<Chord> scan() {
+        List<Chord> chords = new ArrayList<>();
 
-	while (parts.hasMoreElements()) {
-	    Part nextPart = (Part) parts.nextElement();
+        Enumeration parts = score.getPartList().elements();
 
-	    Enumeration phrases = nextPart.getPhraseList().elements();
+        while (parts.hasMoreElements()) {
+            Part nextPart = (Part) parts.nextElement();
 
-	    while (phrases.hasMoreElements()) {
-		Phrase nextPhrase = (Phrase) phrases.nextElement();
+            Enumeration phrases = nextPart.getPhraseList().elements();
 
-		extractChords(nextPhrase);
+            while (phrases.hasMoreElements()) {
+                Phrase nextPhrase = (Phrase) phrases.nextElement();
 
-		Enumeration notes = nextPhrase.getNoteList().elements();
+                extractChords(nextPhrase);
 
-		int i = 0;
-		while (notes.hasMoreElements()) {
-		    Note nextNote = (Note) notes.nextElement();
-		    i++;
-		}//notes
-	    }//phrases
-	}//parts
+                Enumeration notes = nextPhrase.getNoteList().elements();
 
+                int i = 0;
+                while (notes.hasMoreElements()) {
+                    Note nextNote = (Note) notes.nextElement();
+                    if (nextNote.getDynamic() == 127) {
+                        nextNote.setDynamic(126);
+                    }
+                    //System.out.println(nextNote);
+                    i++;
+                }//notes
+            }//phrases
+        }//parts
+
+        //to list
+        for (String k : groups.keySet()) {
+            chords.add(groups.get(k));
+        }
+
+        Collections.sort(chords, new Comparator<Chord>() {
+            @Override
+            public int compare(Chord o1, Chord o2) {
+                return o1.getStartTime().compareTo(o2.getStartTime());
+            }
+        });
+
+        return chords;
     }
 
     private void notate() {
-	View.notate(score); //no muestra acordes :(
+        View.notate(score); //no muestra acordes :(
     }
 
-    public void extractChords(Phrase phrase) {
-	Vector notes = phrase.getNoteList();
+    private void extractChords(Phrase phrase) {
+        Vector notes = phrase.getNoteList();
 
-	int i = 0;
-	for (Object o : notes) {
-	    Note n = (Note) o;
-	    if (n.isRest()) {
-		continue;
-	    }
+        for (int i = 0; i < notes.size(); i++) {
+            Note n = (Note) notes.get(i);
 
-	    Double startTime = phrase.getNoteStartTime(i);
+            if (n.isRest()) {
+                continue;
+            }
 
-	    if (groups.get(startTime) == null) {
-		Chord chord = new Chord();
-		chord.setStartTime(startTime);
-		chord.setDuration(n.getDuration());
+            String startTime = df.format(phrase.getNoteStartTime(i));
 
-		groups.put(startTime, chord);
-	    }
+            if (groups.get(startTime) == null) {
+                Chord chord = new Chord();
+                chord.setStartTime(startTime);
+                chord.setDuration(n.getDuration());
 
-	    groups.get(startTime).add(n);
+                groups.put(startTime, chord);
+            }
 
-	    i++;
-	}
+            groups.get(startTime).add(n);
+        }
     }
 
-    private void processChords() {
-	for (Double k : groups.keySet()) {
-	    originalChords.add(groups.get(k));
-	}
+    private List<Chord> reduceChords(List<Chord> chords, int size) {
+        List<Chord> candidates = new ArrayList<>();
+        List<Chord> reducedChords = new ArrayList<>();
 
-	Collections.sort(originalChords, new Comparator<Chord>() {
-	    @Override
-	    public int compare(Chord o1, Chord o2) {
-		return o1.getStartTime().compareTo(o2.getStartTime());
-	    }
-	});
+        for (int i = 0; i < chords.size(); i++) {
+            Chord c = chords.get(i);
 
-	//TODO remove duplicates and single notes
-	for (int i = 0; i < originalChords.size(); i++) {
-//            if (originalChords.get(i).isSingleNote()) {
-//                continue;
-//            }
+            //0 for all
+            if (size == 0) {
+                candidates.add(c);
+            } else if (c.size() == size) {
+                candidates.add(c);
+            }
+        }
 
-	    Chord newChord = originalChords.get(i).duplicate();
-	    newChord.setDuration(originalChords.get(i).getDuration());
+        if (candidates.size() > 0) {
+            reducedChords.add(candidates.get(0));
 
-	    //copy
-	    if (i == 0) {
-		processedChords.add(newChord);
-	    } else if (!originalChords.get(i - 1).equals(newChord)) {
-		processedChords.add(newChord);
-	    }
-	}
+            for (Chord c : candidates) {
+                Chord last = reducedChords.get(reducedChords.size() - 1);
+                if (!c.equals(last)) {
+                    reducedChords.add(c);
+                }
+            }
+        }
+
+        return reducedChords;
     }
 
-    public void printOriginalChords() {
-	print(originalChords);
-    }
+    private List<PCSet> convertToSets(List<Chord> chords) {
+        List<PCSet> sets = new ArrayList<>();
 
-    public void printProcessedChords() {
-	print(processedChords);
+        for (Chord c : chords) {
+            sets.add(new PCSet(c));
+        }
+
+        return sets;
     }
 
     private void print(List<Chord> chords) {
-	Map<Integer, Integer> count = new HashMap<>();
-
-	for (Chord c : chords) {
-	    System.out.println(c);
-	    if (count.get(c.size()) == null) {
-		count.put(c.size(), 0);
-	    }
-
-	    Integer k = c.size();
-	    Integer v = count.get(k) + 1;
-	    count.put(k, v);
-	}
-	System.out.println("Total: " + chords.size());
-	for (Integer k : count.keySet()) {
-	    System.out.println(k + ": " + count.get(k));
-	}
+        System.out.println("");
+        for (Chord c : chords) {
+            System.out.print(c);
+        }
+        System.out.println("");
     }
 
-    private void writeOriginalChords() {
-	Score s = new Score();
-	s.setTempo(score.getTempo());
-	Part p = new Part();
-	p.setInstrument(MidiUtil.DISTORTED_GUITAR);
-	Phrase ph = new Phrase();
-	s.add(p);
-	p.add(ph);
+    private void writeChordsToMidi(List<Chord> chords, String name, int size) {
+        if (chords.isEmpty()) {
+            return;
+        }
 
-	for (Chord c : originalChords) {
-	    ph.addChord(c.getPitchesArray(), c.getDuration());
-	}
+        Score s = new Score();
+        s.setTempo(score.getTempo());
+        s.setTitle(fileName + " " + name);
 
-	Write.midi(s, "/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/chord_test_original.mid");
+        Part p = new Part();
+        p.setInstrument(MidiUtil.DISTORTED_GUITAR);
+        Phrase ph = new Phrase();
+        s.add(p);
+        p.add(ph);
+        for (Chord c : chords) {
+            ph.addChord(c.getPitchesArray(), c.getDuration());
+        }
+
+        Write.midi(s, fileName + "_" + name + "_" + size + ".mid");
     }
 
-    private void writeProcessedChords() {
-	Score s = new Score();
-	s.setTempo(score.getTempo());
-	Part p = new Part();
-	p.setInstrument(MidiUtil.DISTORTED_GUITAR);
-	Phrase ph = new Phrase();
-	s.add(p);
-	p.add(ph);
+    private void printSets(List<PCSet> sets) {
+        System.out.println("");
+        for (PCSet p : sets) {
+            System.out.print(p);
+        }
+        System.out.println("");
+    }
 
-	for (Chord c : processedChords) {
-	    ph.addChord(c.getPitchesArray(), c.getDuration());
-	}
+    private void histogram() {
+        View.histogram(score, 0);
+    }
 
-	Write.midi(s, "/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/chord_test_processed.mid");
+    public static void main(String[] args) {
+        String[] files = {
+            //            "Metallica_Orion_guitar_1",
+            //            "Metallica_Orion_guitar_2",
+            //            "Metallica_Orion_guitar_3",
+            //            "Metallica_The_Call_Of_Ktulu_guitar_1",
+            //            "Metallica_The_Call_Of_Ktulu_guitar_2",
+            //            "Metallica_The_Call_Of_Ktulu_guitar_3",
+            //            "Metallica_The_Call_Of_Ktulu_guitar_4",
+            //            "Metallica_The_Call_Of_Ktulu_guitar_5",
+            //            "Metallica_To_Live_Is_To_Die_guitar_1",
+            //            "Metallica_To_Live_Is_To_Die_guitar_2",
+            //            "Metallica_To_Live_Is_To_Die_guitar_3",
+            //            "Metallica_To_Live_Is_To_Die_guitar_4",
+            //            "Metallica_To_Live_Is_To_Die_guitar_5",
+            //            "Metallica_To_Live_Is_To_Die_guitar_6",
+            //            "Metallica_To_Live_Is_To_Die_guitar_7"
+            "Ejemplo_analisis"
+        };
+
+        for (String fName : files) {
+            ChordsAnalysis c = new ChordsAnalysis(fName);
+            c.read();
+            List<Chord> chords = c.scan();
+
+            for (int size = 3; size <= 3; size++) {
+                List<Chord> reduced = c.reduceChords(chords, size);
+                c.print(chords);
+                //c.print(reduced);
+                List<PCSet> sets = c.convertToSets(chords);
+                c.printSets(sets);
+
+                //c.writeChordsToMidi(reduced, "reduction", size);
+            }
+        }
+
+        //c.writeOriginalChords();
+        //c.writeProcessedChords();
+        //c.histogram();
     }
 
 }

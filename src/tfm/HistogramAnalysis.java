@@ -6,7 +6,6 @@
 package tfm;
 
 import java.util.Enumeration;
-import jm.JMC;
 import jm.music.data.Note;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
@@ -22,48 +21,16 @@ import jm.util.View;
  */
 public class HistogramAnalysis {
 
-    public static void main(String[] args) {
-        HistogramAnalysis h = new HistogramAnalysis();
-        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_intro.mid", "KI");
-        h.histogram();
-
-        h = new HistogramAnalysis();
-        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_ritmica.mid", "KR");
-        h.histogram();
-
-        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/ktulu_solo.mid", "KS");
-        h.histogram();
-
-        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/orion_ritmica.mid", "OR");
-        h.fix();
-        h.histogram();
-
-        h = new HistogramAnalysis();
-        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/orion_solo.mid", "OS");
-        h.fix();
-        h.histogram();
-
-        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_intro.mid", "TI");
-        h.histogram();
-
-        h = new HistogramAnalysis();
-        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_ritmica.mid", "TR");
-        h.histogram();
-
-        h = new HistogramAnalysis();
-        h.read("/home/casa/William/Dropbox/MIM/C2/TFM/MIDI/guitars/tolive_solo.mid", "TS");
-        h.histogram();
-    }
-
     private Score score;
 
-    public void read(String path, String title) {
+    public HistogramAnalysis(String path, String title) {
         score = new Score();
-        Read.midi(score, path);
+        Read.midi(score, path + ".mid");
         score.setTitle(title);
+        fix();
     }
 
-    public void fix() {
+    private void fix() {
         Enumeration parts = score.getPartList().elements();
 
         while (parts.hasMoreElements()) {
@@ -86,7 +53,18 @@ public class HistogramAnalysis {
     }
 
     public void histogram() {
-        View.histogram(score, JMC.PITCH);
+        View.histogram(score);
+    }
+
+    public static void main(String[] args) {
+        HistogramAnalysis h = new HistogramAnalysis("Metallica_Orion_guitars", "Orion");
+        h.histogram();
+
+        h = new HistogramAnalysis("Metallica_The_Call_Of_Ktulu_guitars","Ktulu");
+        h.histogram();
+
+        h = new HistogramAnalysis("Metallica_To_Live_Is_To_Die_guitars", "ToLive");
+        h.histogram();
     }
 
 }
