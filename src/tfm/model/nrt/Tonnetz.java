@@ -5,7 +5,6 @@
  */
 package tfm.model.nrt;
 
-import static java.lang.reflect.Array.set;
 import java.util.ArrayList;
 import java.util.List;
 import tfm.model.pcst.PCSet;
@@ -23,60 +22,98 @@ public class Tonnetz {
 
 	//create
 	PCSNode n;
-	n = new PCSNode(new PCSet(11, 6, 2));
-	add(n);
-	n = new PCSNode(new PCSet(6, 2, 9));
-	add(n);
-	n = new PCSNode(new PCSet(6, 1, 9));
-	add(n);
-	n = new PCSNode(new PCSet(1, 9, 4));
-	add(n);
-	n = new PCSNode(new PCSet(1, 8, 4));
-	add(n);
-	n = new PCSNode(new PCSet(8, 4, 11));
-	add(n);
-	n = new PCSNode(new PCSet(8, 3, 11));
-	add(n);
-	n = new PCSNode(new PCSet(3, 11, 6));
-	add(n);
-	n = new PCSNode(new PCSet(3, 10, 6));
-	add(n);
-	n = new PCSNode(new PCSet(10, 6, 1));
-	add(n);
-	//
-	n = new PCSNode(new PCSet(2, 10, 5));
-	add(n);
-	n = new PCSNode(new PCSet(2, 9, 5));
-	add(n);
-	n = new PCSNode(new PCSet(9, 5, 0));
-	add(n);
-	n = new PCSNode(new PCSet(9, 4, 0));
-	add(n);
-	n = new PCSNode(new PCSet(4, 0, 7));
-	add(n);
-	n = new PCSNode(new PCSet(4, 11, 7));
-	add(n);
-	n = new PCSNode(new PCSet(11, 7, 2));
-	add(n);
-	//
-	n = new PCSNode(new PCSet(10, 5, 1));
-	add(n);
-	n = new PCSNode(new PCSet(5, 1, 8));
-	add(n);
-	n = new PCSNode(new PCSet(5, 0, 8));
-	add(n);
-	n = new PCSNode(new PCSet(0, 8, 3));
-	add(n);
-	n = new PCSNode(new PCSet(0, 7, 3));
-	add(n);
-	n = new PCSNode(new PCSet(7, 3, 10));
-	add(n);
-	n = new PCSNode(new PCSet(7, 2, 10));
-	add(n);
-	//
 
-	//connect
-	getNode(11, 6, 2).setL(getNode(6, 2, 9));
+	//
+	n = new PCSNode(new PCSet(0, 1, 9));
+	add(n);
+	n = new PCSNode(new PCSet(0, 1, 10));
+	add(n);
+	n = new PCSNode(new PCSet(0, 3, 7));
+	add(n);
+	n = new PCSNode(new PCSet(0, 3, 8));
+	add(n);
+	n = new PCSNode(new PCSet(0, 4, 7));
+	add(n);
+	n = new PCSNode(new PCSet(0, 4, 9));
+	add(n);
+	n = new PCSNode(new PCSet(0, 5, 8));
+	add(n);
+	n = new PCSNode(new PCSet(0, 5, 9));
+	add(n);
+	n = new PCSNode(new PCSet(0, 8, 9));
+	add(n);
+	n = new PCSNode(new PCSet(0, 8, 11));
+	add(n);
+	n = new PCSNode(new PCSet(0, 9, 10));
+	add(n);
+	n = new PCSNode(new PCSet(0, 9, 11));
+	add(n);
+
+	//
+	n = new PCSNode(new PCSet(1, 2, 10));
+	add(n);
+	n = new PCSNode(new PCSet(1, 2, 11));
+	add(n);
+	n = new PCSNode(new PCSet(1, 4, 8));
+	add(n);
+	n = new PCSNode(new PCSet(1, 4, 9));
+	add(n);
+	n = new PCSNode(new PCSet(1, 5, 8));
+	add(n);
+	n = new PCSNode(new PCSet(1, 5, 10));
+	add(n);
+	n = new PCSNode(new PCSet(1, 6, 9));
+	add(n);
+	n = new PCSNode(new PCSet(1, 6, 10));
+	add(n);
+	n = new PCSNode(new PCSet(1, 9, 10));
+	add(n);
+	n = new PCSNode(new PCSet(1, 10, 11));
+	add(n);
+
+	//
+	n = new PCSNode(new PCSet(2, 5, 9));
+	add(n);
+	n = new PCSNode(new PCSet(2, 5, 10));
+	add(n);
+	n = new PCSNode(new PCSet(2, 6, 9));
+	add(n);
+	n = new PCSNode(new PCSet(2, 6, 11));
+	add(n);
+	n = new PCSNode(new PCSet(2, 7, 10));
+	add(n);
+	n = new PCSNode(new PCSet(2, 7, 11));
+	add(n);
+
+	//
+	n = new PCSNode(new PCSet(3, 6, 11));
+	add(n);
+	n = new PCSNode(new PCSet(3, 6, 10));
+	add(n);
+	n = new PCSNode(new PCSet(3, 7, 10));
+	add(n);
+	n = new PCSNode(new PCSet(3, 8, 11));
+	add(n);
+
+	//
+	n = new PCSNode(new PCSet(4, 7, 11));
+	add(n);
+	n = new PCSNode(new PCSet(4, 8, 11));
+	add(n);
+
+	//
+	n = new PCSNode(new PCSet(7, 8, 10));
+	add(n);
+	n = new PCSNode(new PCSet(7, 8, 11));
+	add(n);
+
+	//
+	n = new PCSNode(new PCSet(8, 9, 11));
+	add(n);
+	n = new PCSNode(new PCSet(8, 10, 11));
+	add(n);
+
+	connect();
     }
 
     private void add(PCSNode node) {
@@ -85,7 +122,7 @@ public class Tonnetz {
 	for (PCSNode n : nodes) {
 	    if (node.equals(n)) {
 		exists = true;
-		System.out.println("Warning: node " + n + "exists");
+		System.out.println("Warning: node " + n + " exists");
 		break;
 	    }
 	}
@@ -95,13 +132,18 @@ public class Tonnetz {
 	}
     }
 
+    private void connect() {
+	//connect
+	getNode(11, 6, 2).setL(getNode(6, 2, 9));
+    }
+
     public PCSNode getNode(int pitchClass1, int pitchClass2, int pitchClass3) {
-	String label = "[" + String.valueOf(pitchClass1) + " " + String.valueOf(pitchClass2) + " " + String.valueOf(pitchClass3) + "]";
+	PCSNode target = new PCSNode(new PCSet(pitchClass1, pitchClass2, pitchClass3));
 
 	PCSNode found = null;
 
 	for (PCSNode node : nodes) {
-	    if (label.equals(node.getSet().toString())) {
+	    if (target.equals(node)) {
 		found = node;
 		break;
 	    }
@@ -114,6 +156,10 @@ public class Tonnetz {
 	for (PCSNode node : nodes) {
 	    System.out.println(node.getSet());
 	}
+	System.out.println("Total: " + nodes.size());
     }
 
+    public static void main(String[] args) {
+	new Tonnetz().print();
+    }
 }

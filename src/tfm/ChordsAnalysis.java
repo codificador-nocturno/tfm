@@ -53,7 +53,7 @@ public class ChordsAnalysis {
         Read.midi(score, fileName + ".mid");
     }
 
-    public List<Chord> scan() {
+    public List<Chord> scanChords() {
         List<Chord> chords = new ArrayList<>();
 
         Enumeration parts = score.getPartList().elements();
@@ -201,37 +201,36 @@ public class ChordsAnalysis {
         System.out.println("");
     }
 
-    private void histogram() {
-        View.histogram(score, 0);
-    }
-
     public static void main(String[] args) {
         String[] files = {
-            //            "Metallica_Orion_guitar_1",
-            //            "Metallica_Orion_guitar_2",
-            //            "Metallica_Orion_guitar_3",
-            //            "Metallica_The_Call_Of_Ktulu_guitar_1",
-            //            "Metallica_The_Call_Of_Ktulu_guitar_2",
-            //            "Metallica_The_Call_Of_Ktulu_guitar_3",
-            //            "Metallica_The_Call_Of_Ktulu_guitar_4",
-            //            "Metallica_The_Call_Of_Ktulu_guitar_5",
-            //            "Metallica_To_Live_Is_To_Die_guitar_1",
-            //            "Metallica_To_Live_Is_To_Die_guitar_2",
-            //            "Metallica_To_Live_Is_To_Die_guitar_3",
-            //            "Metallica_To_Live_Is_To_Die_guitar_4",
-            //            "Metallica_To_Live_Is_To_Die_guitar_5",
-            //            "Metallica_To_Live_Is_To_Die_guitar_6",
-            //            "Metallica_To_Live_Is_To_Die_guitar_7"
-            "Ejemplo_analisis"
+            //                        "Orion_guitar_1",
+            //                        "Orion_guitar_2",
+            //                        "Orion_guitar_3",
+            //                        "The_Call_Of_Ktulu_guitar_1",
+            //                        "The_Call_Of_Ktulu_guitar_2",
+            //                        "The_Call_Of_Ktulu_guitar_3",
+            //                        "The_Call_Of_Ktulu_guitar_4",
+            //                        "The_Call_Of_Ktulu_guitar_5",
+            //                        "To_Live_Is_To_Die_guitar_1",
+            //                        "To_Live_Is_To_Die_guitar_2",
+            //                        "To_Live_Is_To_Die_guitar_3",
+            //                        "To_Live_Is_To_Die_guitar_4",
+            //                        "To_Live_Is_To_Die_guitar_5",
+            //                        "To_Live_Is_To_Die_guitar_6",
+            //                        "To_Live_Is_To_Die_guitar_7"
+            //            "Ejemplo_analisis"
+            "Orion_guitars",
+            "The_Call_Of_Ktulu_guitars",
+            "To_Live_Is_To_Die_guitars"
         };
 
         for (String fName : files) {
             ChordsAnalysis c = new ChordsAnalysis(fName);
             c.read();
-            List<Chord> chords = c.scan();
+            List<Chord> chords = c.scanChords();
 
             for (int size = 3; size <= 3; size++) {
-                List<Chord> reduced = c.reduceChords(chords, size);
+                //List<Chord> reduced = c.reduceChords(chords, size);
                 c.print(chords);
                 //c.print(reduced);
                 List<PCSet> sets = c.convertToSets(chords);
@@ -243,7 +242,6 @@ public class ChordsAnalysis {
 
         //c.writeOriginalChords();
         //c.writeProcessedChords();
-        //c.histogram();
     }
 
 }

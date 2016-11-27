@@ -45,7 +45,7 @@ public class PCSet {
 	}
 
 	//sort
-        Collections.sort(classes);
+	Collections.sort(classes);
     }
 
     public PCSet(int pitchClass1, int pitchClass2, int pitchClass3) {
@@ -56,7 +56,7 @@ public class PCSet {
 	classes.add(pitchClass3);
 
 	//sort
-        Collections.sort(classes);
+	Collections.sort(classes);
     }
 
     @Override
