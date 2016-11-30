@@ -11,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import jm.constants.Scales;
 import jm.music.data.Note;
+import tfm.model.pcst.PCSUtils;
+import tfm.model.pcst.PCSet;
 
 /**
  *
@@ -28,6 +30,16 @@ public class Chord {
 	notes = new ArrayList<>();
     }
 
+    public Chord(PCSet set){
+	PCSUtils u=new PCSUtils();
+	
+	notes = new ArrayList<>();
+	
+	for(Integer c:set.getClasses()){
+	    notes.add(new Note(u.getNote(c)));
+	}
+    }
+    
     public void add(Note note) {
 	//dont add duplicates
 	for (Note n : notes) {
@@ -139,5 +151,7 @@ public class Chord {
     public void setStartTime(String startTime) {
 	this.startTime = startTime;
     }
+    
+    
 
 }

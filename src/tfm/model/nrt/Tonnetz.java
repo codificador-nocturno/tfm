@@ -5,8 +5,19 @@
  */
 package tfm.model.nrt;
 
+import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import jm.midi.MidiUtil;
+import jm.music.data.Part;
+import jm.music.data.Phrase;
+import jm.music.data.Score;
+import jm.util.Write;
+import tfm.ChordsAnalysis;
+import tfm.Combinator;
+import tfm.model.chords.Chord;
+import tfm.model.pcst.PCSUtils;
 import tfm.model.pcst.PCSet;
 
 /**
@@ -20,98 +31,34 @@ public class Tonnetz {
     public Tonnetz() {
 	nodes = new ArrayList<>();
 
-	//create
-	PCSNode n;
-
+	add(new PCSNode(new PCSet(0, 3, 7)));
+	add(new PCSNode(new PCSet(0, 4, 7)));
+	add(new PCSNode(new PCSet(0, 4, 9)));
+	add(new PCSNode(new PCSet(0, 5, 9)));
+	add(new PCSNode(new PCSet(0, 5, 8)));
+	add(new PCSNode(new PCSet(0, 3, 8)));
 	//
-	n = new PCSNode(new PCSet(0, 1, 9));
-	add(n);
-	n = new PCSNode(new PCSet(0, 1, 10));
-	add(n);
-	n = new PCSNode(new PCSet(0, 3, 7));
-	add(n);
-	n = new PCSNode(new PCSet(0, 3, 8));
-	add(n);
-	n = new PCSNode(new PCSet(0, 4, 7));
-	add(n);
-	n = new PCSNode(new PCSet(0, 4, 9));
-	add(n);
-	n = new PCSNode(new PCSet(0, 5, 8));
-	add(n);
-	n = new PCSNode(new PCSet(0, 5, 9));
-	add(n);
-	n = new PCSNode(new PCSet(0, 8, 9));
-	add(n);
-	n = new PCSNode(new PCSet(0, 8, 11));
-	add(n);
-	n = new PCSNode(new PCSet(0, 9, 10));
-	add(n);
-	n = new PCSNode(new PCSet(0, 9, 11));
-	add(n);
-
+	add(new PCSNode(new PCSet(1, 4, 8)));
+	add(new PCSNode(new PCSet(1, 5, 8)));
+	add(new PCSNode(new PCSet(1, 5, 10)));
+	add(new PCSNode(new PCSet(1, 6, 10)));
+	add(new PCSNode(new PCSet(1, 6, 9)));
+	add(new PCSNode(new PCSet(1, 4, 9)));
 	//
-	n = new PCSNode(new PCSet(1, 2, 10));
-	add(n);
-	n = new PCSNode(new PCSet(1, 2, 11));
-	add(n);
-	n = new PCSNode(new PCSet(1, 4, 8));
-	add(n);
-	n = new PCSNode(new PCSet(1, 4, 9));
-	add(n);
-	n = new PCSNode(new PCSet(1, 5, 8));
-	add(n);
-	n = new PCSNode(new PCSet(1, 5, 10));
-	add(n);
-	n = new PCSNode(new PCSet(1, 6, 9));
-	add(n);
-	n = new PCSNode(new PCSet(1, 6, 10));
-	add(n);
-	n = new PCSNode(new PCSet(1, 9, 10));
-	add(n);
-	n = new PCSNode(new PCSet(1, 10, 11));
-	add(n);
-
+	add(new PCSNode(new PCSet(2, 5, 9)));
+	add(new PCSNode(new PCSet(2, 6, 9)));
+	add(new PCSNode(new PCSet(2, 6, 11)));
+	add(new PCSNode(new PCSet(2, 7, 11)));
+	add(new PCSNode(new PCSet(2, 7, 10)));
+	add(new PCSNode(new PCSet(2, 5, 10)));
 	//
-	n = new PCSNode(new PCSet(2, 5, 9));
-	add(n);
-	n = new PCSNode(new PCSet(2, 5, 10));
-	add(n);
-	n = new PCSNode(new PCSet(2, 6, 9));
-	add(n);
-	n = new PCSNode(new PCSet(2, 6, 11));
-	add(n);
-	n = new PCSNode(new PCSet(2, 7, 10));
-	add(n);
-	n = new PCSNode(new PCSet(2, 7, 11));
-	add(n);
-
+	add(new PCSNode(new PCSet(3, 6, 10)));
+	add(new PCSNode(new PCSet(3, 7, 10)));
+	add(new PCSNode(new PCSet(3, 8, 11)));
+	add(new PCSNode(new PCSet(3, 6, 11)));
 	//
-	n = new PCSNode(new PCSet(3, 6, 11));
-	add(n);
-	n = new PCSNode(new PCSet(3, 6, 10));
-	add(n);
-	n = new PCSNode(new PCSet(3, 7, 10));
-	add(n);
-	n = new PCSNode(new PCSet(3, 8, 11));
-	add(n);
-
-	//
-	n = new PCSNode(new PCSet(4, 7, 11));
-	add(n);
-	n = new PCSNode(new PCSet(4, 8, 11));
-	add(n);
-
-	//
-	n = new PCSNode(new PCSet(7, 8, 10));
-	add(n);
-	n = new PCSNode(new PCSet(7, 8, 11));
-	add(n);
-
-	//
-	n = new PCSNode(new PCSet(8, 9, 11));
-	add(n);
-	n = new PCSNode(new PCSet(8, 10, 11));
-	add(n);
+	add(new PCSNode(new PCSet(4, 7, 11)));
+	add(new PCSNode(new PCSet(4, 8, 11)));
 
 	connect();
     }
@@ -134,7 +81,35 @@ public class Tonnetz {
 
     private void connect() {
 	//connect
-	getNode(11, 6, 2).setL(getNode(6, 2, 9));
+	getNode(0, 3, 7).setL(getNode(7, 3, 10)).setR(getNode(0, 3, 8)).setP(getNode(0, 4, 7));
+	getNode(0, 4, 7).setL(getNode(0, 4, 9)).setR(getNode(4, 11, 7)).setP(getNode(0, 3, 7));
+	getNode(0, 4, 9).setL(getNode(0, 4, 7)).setR(getNode(0, 9, 5)).setP(getNode(1, 9, 4));
+	getNode(0, 5, 9).setL(getNode(2, 5, 9)).setR(getNode(0, 4, 9)).setP(getNode(0, 5, 8));
+	getNode(0, 5, 8).setL(getNode(0, 3, 8)).setR(getNode(1, 5, 8)).setP(getNode(0, 5, 9));
+	getNode(0, 3, 8).setL(getNode(0, 5, 8)).setR(getNode(0, 3, 7)).setP(getNode(8, 3, 11));
+	//
+	getNode(1, 4, 8).setL(getNode(8, 4, 11)).setR(getNode(1, 4, 9)).setP(getNode(1, 5, 8));
+	getNode(1, 5, 8).setL(getNode(1, 5, 10)).setR(getNode(0, 5, 8)).setP(getNode(1, 4, 8));
+	getNode(1, 5, 10).setL(getNode(1, 5, 8)).setR(getNode(1, 6, 10)).setP(getNode(2, 5, 10));
+	getNode(1, 6, 10).setL(getNode(3, 6, 10)).setR(getNode(1, 5, 10)).setP(getNode(1, 6, 9));
+	getNode(1, 6, 9).setL(getNode(1, 4, 9)).setR(getNode(2, 6, 9)).setP(getNode(1, 6, 10));
+	getNode(1, 4, 9).setL(getNode(1, 6, 9)).setR(getNode(1, 4, 8)).setP(getNode(0, 4, 9));
+	//
+	getNode(2, 5, 9).setL(getNode(0, 5, 9)).setR(getNode(2, 5, 10)).setP(getNode(2, 6, 9));
+	getNode(2, 6, 9).setL(getNode(2, 6, 11)).setR(getNode(1, 6, 9)).setP(getNode(2, 5, 9));
+	getNode(2, 6, 11).setL(getNode(2, 6, 9)).setR(getNode(2, 7, 11)).setP(getNode(3, 6, 11));
+	getNode(2, 7, 11).setL(getNode(4, 7, 11)).setR(getNode(2, 6, 11)).setP(getNode(2, 7, 10));
+	getNode(2, 7, 10).setL(getNode(2, 5, 10)).setR(getNode(3, 7, 10)).setP(getNode(2, 7, 11));
+	getNode(2, 5, 10).setL(getNode(2, 7, 10)).setR(getNode(2, 5, 9)).setP(getNode(1, 5, 10));
+	//
+	getNode(3, 6, 10).setL(getNode(1, 6, 10)).setR(getNode(3, 6, 11)).setP(getNode(3, 7, 10));
+	getNode(3, 7, 10).setL(getNode(0, 3, 7)).setR(getNode(2, 7, 10)).setP(getNode(3, 6, 10));
+	getNode(3, 8, 11).setL(getNode(3, 6, 11)).setR(getNode(4, 8, 11)).setP(getNode(0, 3, 8));
+	getNode(3, 6, 11).setL(getNode(3, 8, 11)).setR(getNode(3, 6, 10)).setP(getNode(2, 6, 11));
+	//
+	getNode(4, 7, 11).setL(getNode(2, 7, 11)).setR(getNode(0, 4, 7)).setP(getNode(4, 8, 11));
+	getNode(4, 8, 11).setL(getNode(1, 4, 8)).setR(getNode(3, 8, 11)).setP(getNode(4, 7, 11));
+
     }
 
     public PCSNode getNode(int pitchClass1, int pitchClass2, int pitchClass3) {
@@ -152,6 +127,43 @@ public class Tonnetz {
 	return found;
     }
 
+    public PCSNode applySingle(PCSNode node, String operations) {
+	PCSNode n = node;
+	for (char c : operations.toCharArray()) {
+	    n = apply(n, c);
+	}
+
+	return n;
+    }
+
+    public List<PCSNode> applyAll(PCSNode node, String operations) {
+	List<PCSNode> nodes = new ArrayList<>();
+
+	PCSNode n = node;
+	for (char c : operations.toCharArray()) {
+	    n = apply(n, c);
+	    nodes.add(n);
+	}
+
+	return nodes;
+    }
+
+    private PCSNode apply(PCSNode node, char operation) {
+	switch (operation) {
+	    case 'I':
+		return node;
+	    case 'L':
+		return node.getL();
+	    case 'R':
+		return node.getR();
+	    case 'P':
+		return node.getP();
+	    default:
+		System.out.println("Warning operation " + operation + " not known.");
+		return null;
+	}
+    }
+
     public void print() {
 	for (PCSNode node : nodes) {
 	    System.out.println(node.getSet());
@@ -159,7 +171,114 @@ public class Tonnetz {
 	System.out.println("Total: " + nodes.size());
     }
 
+    public void check() {
+	for (PCSNode node : nodes) {
+	    try {
+		System.out.print("Actual:" + node);
+		System.out.print(" L:" + node.getL());
+		System.out.print(" R:" + node.getR());
+		System.out.print(" P:" + node.getP());
+		System.out.print(" I:" + node.getI());
+		System.out.print(" PP:" + node.getP().getP());
+		System.out.print(" RR:" + node.getR().getR());
+		System.out.print(" LL:" + node.getL().getL());
+		System.out.print(" PL:" + node.getP().getL());
+		System.out.print(" PR:" + node.getP().getR());
+		System.out.print(" LP:" + node.getL().getP());
+		System.out.print(" LR:" + node.getL().getR());
+		System.out.print(" RL:" + node.getR().getL());
+		System.out.println(" RP:" + node.getR().getP());
+	    } catch (Exception e) {
+		System.out.println("\nError in tonnetz");
+	    }
+	}
+    }
+
+    public String getPath(PCSNode from, PCSNode to) {
+	String path = "";
+	boolean found = false;
+	int size = 1;
+
+	Combinator c = new Combinator();
+
+	//all posibilites
+	while (!found) {
+	    c.getCombinations(size, "");
+
+	    List<String> operations = c.getPaths();
+
+	    for (String op : operations) {
+		if (applySingle(from, op).equals(to)) {
+		    found = true;
+		    path = op;
+		    break;
+		}
+	    }
+
+	    size++;
+	}
+
+	return path;
+    }
+
     public static void main(String[] args) {
-	new Tonnetz().print();
+	Tonnetz tonnetz = new Tonnetz();
+	//tonnetz.check();
+	//tonnetz.print();
+	//PCSNode apply = tonnetz.applySingle(tonnetz.getNode(0, 4, 9), "ILIPILIPILIPILI");
+	//System.out.println(apply);
+	//List<PCSNode> all = tonnetz.applyAll(tonnetz.getNode(0, 4, 9), "ILIPILIPILIPILI");
+	//PCSUtils u = new PCSUtils();
+	//u.print(all);
+	//List<Chord> chords = u.nodesToChords(all);
+//	for (Chord c : chords) {
+//	    System.out.print(c + " ");
+//	}
+//	System.out.println("");
+
+	//tonnetz.writeChordsToMidi(chords, "from_transformations");
+	System.out.println("Found: " + tonnetz.getPath(tonnetz.getNode(0, 4, 9), tonnetz.getNode(1, 5, 8)));
+    }
+
+    private void writeChordsToMidi(List<Chord> chords, String name) {
+	if (chords.isEmpty()) {
+	    return;
+	}
+
+	Score s = new Score();
+	s.setTempo(120);
+	s.setTitle(name);
+
+	Part p = new Part();
+	p.setInstrument(MidiUtil.DISTORTED_GUITAR);
+	Phrase ph = new Phrase();
+	s.add(p);
+	p.add(ph);
+	for (Chord c : chords) {
+	    ph.addChord(c.getPitchesArray(), c.getDuration());
+	}
+
+	Write.midi(s, name + ".mid");
+    }
+
+    /**
+     * @return the nodes
+     */
+    public List<PCSNode> getNodes() {
+        return nodes;
+    }
+
+    public List<String> findTransformations(List<PCSet> sets) {
+        List<String> transf=new ArrayList<>();
+        
+        for(int i=0;i<sets.size()-1;i++){
+            PCSet setF=sets.get(i);
+            PCSet setT=sets.get(i+1);
+            PCSNode from=getNode(setF.getClasses().get(0), setF.getClasses().get(1), setF.getClasses().get(2));
+            PCSNode to=getNode(setT.getClasses().get(0), setT.getClasses().get(1), setT.getClasses().get(2));
+            transf.add(getPath(from, to));
+        }
+        
+        return transf;
     }
 }

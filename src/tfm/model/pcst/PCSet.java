@@ -20,71 +20,81 @@ public class PCSet {
     private List<Integer> classes;
 
     public PCSet(Chord chord) {
-	PCSUtils pcs = new PCSUtils();
+        PCSUtils pcs = new PCSUtils();
 
-	classes = new ArrayList<>();
+        classes = new ArrayList<>();
 
-	List<Integer> candidates = new ArrayList<>();
+        List<Integer> candidates = new ArrayList<>();
 
-	for (Note note : chord.getNotes()) {
-	    candidates.add(pcs.getPitchClass(note));
-	}
+        for (Note note : chord.getNotes()) {
+            candidates.add(pcs.getPitchClass(note));
+        }
 
-	for (Integer cand : candidates) {
-	    boolean found = false;
+        for (Integer cand : candidates) {
+            boolean found = false;
 
-	    for (Integer cl : classes) {
-		if (cand.equals(cl)) {
-		    found = true;
-		}
-	    }
+            for (Integer cl : classes) {
+                if (cand.equals(cl)) {
+                    found = true;
+                }
+            }
 
-	    if (!found) {
-		classes.add(cand);
-	    }
-	}
+            if (!found) {
+                classes.add(cand);
+            }
+        }
 
-	//sort
-	Collections.sort(classes);
+        //sort
+        Collections.sort(classes);
     }
 
     public PCSet(int pitchClass1, int pitchClass2, int pitchClass3) {
-	classes = new ArrayList<>();
+        classes = new ArrayList<>();
 
-	classes.add(pitchClass1);
-	classes.add(pitchClass2);
-	classes.add(pitchClass3);
+        classes.add(pitchClass1);
+        classes.add(pitchClass2);
+        classes.add(pitchClass3);
 
-	//sort
-	Collections.sort(classes);
+        //sort
+        Collections.sort(classes);
     }
 
     @Override
     public String toString() {
-	String s = "[";
+        String s = "[";
 
-	boolean first = true;
-	for (Integer i : classes) {
-	    if (first) {
-		first = false;
-	    } else {
-		s += " ";
-	    }
-	    s += i.toString();
-	}
+        boolean first = true;
+        for (Integer i : classes) {
+            if (first) {
+                first = false;
+            } else {
+                s += " ";
+            }
+            s += i.toString();
+        }
 
-	return s + "]";
+        return s + "]";
     }
 
     @Override
     public boolean equals(Object obj) {
-	PCSet other = (PCSet) obj;
+        PCSet other = (PCSet) obj;
 
-	return other.toString().equals(this.toString());
+        return other.toString().equals(this.toString());
     }
 
     public int size() {
-	return classes.size();
+        return classes.size();
     }
 
+    /**
+     * @return the classes
+     */
+    public List<Integer> getClasses() {
+        return classes;
+    }
+
+    public void sort() {
+        Collections.sort(classes);
+    }
 }

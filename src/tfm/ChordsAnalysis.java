@@ -25,6 +25,7 @@ import jm.util.Read;
 import jm.util.View;
 import jm.util.Write;
 import tfm.model.nrt.Tonnetz;
+import tfm.model.pcst.PCSUtils;
 import tfm.model.pcst.PCSet;
 
 /**
@@ -172,7 +173,7 @@ public class ChordsAnalysis {
         System.out.println("");
     }
 
-    private void writeChordsToMidi(List<Chord> chords, String name, int size) {
+    private void writeChordsToMidi(List<Chord> chords, String name) {
         if (chords.isEmpty()) {
             return;
         }
@@ -190,7 +191,7 @@ public class ChordsAnalysis {
             ph.addChord(c.getPitchesArray(), c.getDuration());
         }
 
-        Write.midi(s, fileName + "_" + name + "_" + size + ".mid");
+        Write.midi(s, fileName + "_" + name + ".mid");
     }
 
     private void printSets(List<PCSet> sets) {
@@ -218,11 +219,14 @@ public class ChordsAnalysis {
             //                        "To_Live_Is_To_Die_guitar_5",
             //                        "To_Live_Is_To_Die_guitar_6",
             //                        "To_Live_Is_To_Die_guitar_7"
-            //            "Ejemplo_analisis"
-            "Orion_guitars",
-            "The_Call_Of_Ktulu_guitars",
-            "To_Live_Is_To_Die_guitars"
+            "Ejemplo_analisis"
+        //"Orion_guitars",
+        //"The_Call_Of_Ktulu_guitars",
+        //"To_Live_Is_To_Die_guitars"
         };
+
+        PCSUtils pcsu = new PCSUtils();
+        Tonnetz tonnetz = new Tonnetz();
 
         for (String fName : files) {
             ChordsAnalysis c = new ChordsAnalysis(fName);
@@ -235,6 +239,16 @@ public class ChordsAnalysis {
                 //c.print(reduced);
                 List<PCSet> sets = c.convertToSets(chords);
                 c.printSets(sets);
+
+                //TODO
+                List<PCSet> fixed = pcsu.setsToTriads(sets, new Tonnetz());
+                c.printSets(fixed);
+
+                List<String> ops = tonnetz.findTransformations(fixed);
+                for (String op : ops) {
+                    System.out.print(op + " ");
+                }
+                System.out.println("");
 
                 //c.writeChordsToMidi(reduced, "reduction", size);
             }

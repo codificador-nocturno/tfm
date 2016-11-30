@@ -49,11 +49,6 @@ public class PCSNode {
      */
     public PCSNode setL(PCSNode node) {
 	L = node;
-	//
-	if (node.getL() == null) {
-	    node.setL(this);
-	}
-
 	return this;
     }
 
@@ -62,10 +57,6 @@ public class PCSNode {
      */
     public PCSNode setP(PCSNode node) {
 	P = node;
-	//
-	if (node.getP() == null) {
-	    node.setP(this);
-	}
 	return this;
     }
 
@@ -74,10 +65,6 @@ public class PCSNode {
      */
     public PCSNode setR(PCSNode node) {
 	R = node;
-	//
-	if (node.getR() == null) {
-	    node.setR(this);
-	}
 	return this;
     }
 
@@ -97,14 +84,6 @@ public class PCSNode {
      * @return the I
      */
     public PCSNode getI() {
-	return this;
-    }
-
-    /**
-     * @param I the I to set
-     */
-    public PCSNode setI(PCSNode I) {
-	this.I = this;
 	return this;
     }
 
