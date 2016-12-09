@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tfm;
+package tfm.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Combinator {
     public Combinator() {
 	paths = new ArrayList<>();
 	ops = new ArrayList<>();
-	ops.add("I");
+	ops.add("M");
 	ops.add("L");
 	ops.add("R");
 	ops.add("P");

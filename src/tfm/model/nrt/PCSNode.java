@@ -17,7 +17,6 @@ public class PCSNode {
     private PCSNode L;
     private PCSNode P;
     private PCSNode R;
-    private PCSNode I;
 
     public PCSNode(PCSet set) {
 	this.set = set;
@@ -81,9 +80,9 @@ public class PCSNode {
     }
 
     /**
-     * @return the I
+     * @return the M
      */
-    public PCSNode getI() {
+    public PCSNode getM() {
 	return this;
     }
 
@@ -91,5 +90,4 @@ public class PCSNode {
     public String toString() {
 	return set.toString();
     }
-
 }

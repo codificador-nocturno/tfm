@@ -5,11 +5,13 @@
  */
 package tfm.model.pcst;
 
+import tfm.utils.Utilities;
 import tfm.model.chords.Chord;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import jm.music.data.Note;
+import tfm.Main;
 
 /**
  *
@@ -20,14 +22,14 @@ public class PCSet {
     private List<Integer> classes;
 
     public PCSet(Chord chord) {
-        PCSUtils pcs = new PCSUtils();
+        Utilities pcs = new Utilities();
 
         classes = new ArrayList<>();
 
         List<Integer> candidates = new ArrayList<>();
 
         for (Note note : chord.getNotes()) {
-            candidates.add(pcs.getPitchClass(note));
+            candidates.add(Main.pcsets.getPitchClass(note));
         }
 
         for (Integer cand : candidates) {

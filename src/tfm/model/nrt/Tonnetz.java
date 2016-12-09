@@ -14,10 +14,10 @@ import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
 import jm.util.Write;
-import tfm.ChordsAnalysis;
-import tfm.Combinator;
+import tfm.analyisis.ChordsAnalysis;
+import tfm.utils.Combinator;
 import tfm.model.chords.Chord;
-import tfm.model.pcst.PCSUtils;
+import tfm.utils.Utilities;
 import tfm.model.pcst.PCSet;
 
 /**
@@ -150,7 +150,7 @@ public class Tonnetz {
 
     private PCSNode apply(PCSNode node, char operation) {
 	switch (operation) {
-	    case 'I':
+	    case 'M':
 		return node;
 	    case 'L':
 		return node.getL();
@@ -178,7 +178,7 @@ public class Tonnetz {
 		System.out.print(" L:" + node.getL());
 		System.out.print(" R:" + node.getR());
 		System.out.print(" P:" + node.getP());
-		System.out.print(" I:" + node.getI());
+		System.out.print(" M:" + node.getM());
 		System.out.print(" PP:" + node.getP().getP());
 		System.out.print(" RR:" + node.getR().getR());
 		System.out.print(" LL:" + node.getL().getL());
@@ -221,64 +221,25 @@ public class Tonnetz {
 	return path;
     }
 
-    public static void main(String[] args) {
-	Tonnetz tonnetz = new Tonnetz();
-	//tonnetz.check();
-	//tonnetz.print();
-	//PCSNode apply = tonnetz.applySingle(tonnetz.getNode(0, 4, 9), "ILIPILIPILIPILI");
-	//System.out.println(apply);
-	//List<PCSNode> all = tonnetz.applyAll(tonnetz.getNode(0, 4, 9), "ILIPILIPILIPILI");
-	//PCSUtils u = new PCSUtils();
-	//u.print(all);
-	//List<Chord> chords = u.nodesToChords(all);
-//	for (Chord c : chords) {
-//	    System.out.print(c + " ");
-//	}
-//	System.out.println("");
-
-	//tonnetz.writeChordsToMidi(chords, "from_transformations");
-	System.out.println("Found: " + tonnetz.getPath(tonnetz.getNode(0, 4, 9), tonnetz.getNode(1, 5, 8)));
-    }
-
-    private void writeChordsToMidi(List<Chord> chords, String name) {
-	if (chords.isEmpty()) {
-	    return;
-	}
-
-	Score s = new Score();
-	s.setTempo(120);
-	s.setTitle(name);
-
-	Part p = new Part();
-	p.setInstrument(MidiUtil.DISTORTED_GUITAR);
-	Phrase ph = new Phrase();
-	s.add(p);
-	p.add(ph);
-	for (Chord c : chords) {
-	    ph.addChord(c.getPitchesArray(), c.getDuration());
-	}
-
-	Write.midi(s, name + ".mid");
-    }
-
     /**
      * @return the nodes
      */
     public List<PCSNode> getNodes() {
-        return nodes;
+	return nodes;
     }
 
     public List<String> findTransformations(List<PCSet> sets) {
-        List<String> transf=new ArrayList<>();
-        
-        for(int i=0;i<sets.size()-1;i++){
-            PCSet setF=sets.get(i);
-            PCSet setT=sets.get(i+1);
-            PCSNode from=getNode(setF.getClasses().get(0), setF.getClasses().get(1), setF.getClasses().get(2));
-            PCSNode to=getNode(setT.getClasses().get(0), setT.getClasses().get(1), setT.getClasses().get(2));
-            transf.add(getPath(from, to));
-        }
-        
-        return transf;
+	List<String> transf = new ArrayList<>();
+
+	for (int i = 0; i < sets.size() - 2; i++) {
+	    PCSet setF = sets.get(i);
+	    PCSet setT = sets.get(i + 1);
+	    PCSNode from = getNode(setF.getClasses().get(0), setF.getClasses().get(1), setF.getClasses().get(2));
+	    PCSNode to = getNode(setT.getClasses().get(0), setT.getClasses().get(1), setT.getClasses().get(2));
+
+	    transf.add(getPath(from, to));
+	}
+
+	return transf;
     }
 }

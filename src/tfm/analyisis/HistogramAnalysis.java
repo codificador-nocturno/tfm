@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tfm;
+package tfm.analyisis;
 
 import java.util.Enumeration;
 import jm.music.data.Note;
@@ -54,19 +54,6 @@ public class HistogramAnalysis {
     public void histogram() {
 	View.histogram(score);
     }
-
-    public static void main(String[] args) {
-
-	String[] files = {
-	    "Orion_guitars",
-	    "The_Call_Of_Ktulu_guitars",
-	    "To_Live_Is_To_Die_guitars"
-	};
-
-	for (String file : files) {
-	    HistogramAnalysis h = new HistogramAnalysis(file, file);
-	    h.histogram();
-	}
-    }
+   
 
 }
