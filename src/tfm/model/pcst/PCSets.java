@@ -171,7 +171,7 @@ public class PCSets {
 		return "G";
 
 	    case 8:
-		return "G#";
+		return "Ab";
 
 	    case 9:
 		return "A";
@@ -197,7 +197,5 @@ public class PCSets {
 	}
 	
 	return strings;
-    }
-    
-    
+    }    
 }

@@ -147,7 +147,7 @@ public class Matrix implements Serializable {
         return name;
     }
 
-    public List<String> generateOperations(int length) {
+    public List<String> generateSteps(int length) {
         List<String> ops = new ArrayList<>();
 
         Random r = new Random();
@@ -175,7 +175,7 @@ public class Matrix implements Serializable {
     public List<PCSet> generateSets(int length) {
         List<PCSet> sets = new ArrayList<>();
 
-        List<String> strings = generateOperations(length);
+        List<String> strings = generateSteps(length);
 
         for (String s : strings) {
             sets.add(new PCSet(Integer.parseInt(s.replaceAll("\\[", "").replaceAll("\\]", ""))));
