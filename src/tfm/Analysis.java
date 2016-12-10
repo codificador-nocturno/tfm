@@ -5,35 +5,22 @@
  */
 package tfm;
 
-import tfm.utils.Utilities;
 import tfm.analyisis.SetsAnalysis;
 import tfm.analyisis.ChordsAnalysis;
 import java.util.List;
 import tfm.model.chords.Chord;
-import tfm.model.chords.Chords;
 import tfm.model.markov.Matrix;
 import tfm.model.nrt.Tonnetz;
 import tfm.model.pcst.PCSet;
-import tfm.model.pcst.PCSets;
 
 /**
  *
  * @author william
  */
-public class Main {
+public class Analysis {
 
-    public static Utilities utilities;
-    public static PCSets pcsets;
-    public static Chords chords;
-    public static Tonnetz tonnetz;
-
-    public static void main(String[] args) {
-        Main.utilities = new Utilities();
-        Main.tonnetz = new Tonnetz();
-        Main.chords = new Chords();
-        Main.pcsets = new PCSets();
-
-        Main m = new Main();
+    public static void main(String[] args) throws Exception {
+        Analysis m = new Analysis();
 
         String[] files = {
             "Orion_guitar_1",
@@ -51,10 +38,8 @@ public class Main {
             "To_Live_Is_To_Die_guitar_5",
             "To_Live_Is_To_Die_guitar_6",
             "To_Live_Is_To_Die_guitar_7"
-        //"Ejemplo_analisis_acordes"
-        //"Orion_guitars",
-        //"The_Call_Of_Ktulu_guitars",
-        //"To_Live_Is_To_Die_guitars"
+            //"Ejemplo_analisis_acordes",
+            //"Ejemplo_analisis_tonos"
         };
 
         for (String fName : files) {
@@ -62,59 +47,75 @@ public class Main {
             ChordsAnalysis ca = new ChordsAnalysis(fName);
             ca.read();
             List<Chord> allChords = ca.scanAll();
-            m.singleNotes(allChords, sa);
-            m.chords(allChords, sa);
+            m.singleNotes(fName, allChords, sa);
+            m.chords(fName, allChords, sa);
         }
 
         //m.histograms();
     }
 
-    private void singleNotes(List<Chord> chords, SetsAnalysis sa) {
+    private void singleNotes(String name, List<Chord> chords, SetsAnalysis sa) throws Exception {
         //to sets
-        List<PCSet> sets = Main.pcsets.convertChordsToSets(chords);
+        List<PCSet> sets = Refs.pcsets.convertChordsToSets(chords);
 
         //single notes
         List<PCSet> single = sa.extractSets(sets, 1, 1);
 
         if (single.size() > 0) {
-            Main.utilities.print(single);
+            //Main.utilities.printList(single);
 
             //extract markov matrix
-            Matrix m = new Matrix();
-            m.loadSets(single);
+            Matrix m = new Matrix(name + "_classes");
+            m.loadStrings(Refs.pcsets.setsToStringList(single));
+            if (m.check()) {
+                m.print();
+                Refs.matrices.writeToDisk(m);
+            }
         }
     }
 
-    private void chords(List<Chord> chords, SetsAnalysis sa) {
+    private void chords(String name, List<Chord> chords, SetsAnalysis sa) throws Exception {
 
-        //Main.utils.print(chords);
+        //Main.utils.printList(chords);
         //convert to sets
-        List<PCSet> sets = Main.pcsets.convertChordsToSets(chords);
-        //Main.utils.print(sets);
+        List<PCSet> sets = Refs.pcsets.convertChordsToSets(chords);
+        //Main.utils.printList(sets);
 
         //reduce sets
         List<PCSet> groups = sa.extractSets(sets, 2, 6);
-        //Main.utils.print(groups);
+        //Main.utils.printList(groups);
 
         //fix sets
-        List<PCSet> fixed = Main.pcsets.setsToTriads(groups, new Tonnetz());
-        //Main.utils.print(fixed);
+        List<PCSet> fixed = Refs.pcsets.setsToTriads(groups, new Tonnetz());
+        //Main.utils.printList(fixed);
 
         //find transformations
-        List<String> ops = Main.tonnetz.findTransformations(fixed);
+        List<String> ops = Refs.tonnetz.findTransformations(fixed);
 
         if (ops.size() > 0) {
-            Main.utilities.print(fixed);
-            Main.utilities.print(ops);
+            //Main.utilities.printList(fixed);
+            Refs.utilities.printList(ops);
 
-            //extract markov matrix
-            Matrix m = new Matrix();
-            m.loadOperations(ops);
+            //compund op matrix
+            Matrix m = new Matrix(name + "_multiple");
+            m.loadStrings(ops);
+            if (m.check()) {
+                m.print();
+                Refs.matrices.writeToDisk(m);
+            }
+
+            //single op matrix
+            m = new Matrix(name + "_single");
+            m.loadStrings(Refs.utilities.multipleToSingleOps(ops));
+            if (m.check()) {
+                m.print();
+                Refs.matrices.writeToDisk(m);
+            }
         }
 
         /*
-	    List<Chord> newChords = Main.utils.convertSetsToChords(fixed, -7);
-	    Main.utils.writeChordsToMidi(newChords, fName, "from_sets", 128);
+	    List<Chord> newChords = Analysis.utils.convertSetsToChords(fixed, -7);
+	    Analysis.utils.writeChordsToMidi(newChords, fName, "from_sets", 128);
          */
     }
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import jm.music.data.Note;
-import tfm.Main;
+import tfm.Refs;
 
 /**
  *
@@ -29,7 +29,7 @@ public class PCSet {
         List<Integer> candidates = new ArrayList<>();
 
         for (Note note : chord.getNotes()) {
-            candidates.add(Main.pcsets.getPitchClass(note));
+            candidates.add(Refs.pcsets.getPitchClass(note));
         }
 
         for (Integer cand : candidates) {
@@ -50,6 +50,12 @@ public class PCSet {
         Collections.sort(classes);
     }
 
+    public PCSet(int pitchClass1) {
+        classes = new ArrayList<>();
+
+        classes.add(pitchClass1);
+    }
+    
     public PCSet(int pitchClass1, int pitchClass2, int pitchClass3) {
         classes = new ArrayList<>();
 

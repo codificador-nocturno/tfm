@@ -8,10 +8,12 @@ package tfm.model.pcst;
 import java.util.ArrayList;
 import java.util.List;
 import jm.music.data.Note;
-import tfm.Main;
 import tfm.model.chords.Chord;
 import tfm.model.nrt.PCSNode;
 import tfm.model.nrt.Tonnetz;
+import tfm.Refs;
+import tfm.model.markov.Matrix;
+
 
 /**
  *
@@ -123,7 +125,7 @@ public class PCSets {
                 }
             } else {
                 for (PCSNode n : tonnetz.getNodes()) {
-                    if (Main.pcsets.contains(set, n.getSet())) {
+                    if (Refs.pcsets.contains(set, n.getSet())) {
                         candidates.add(n.getSet());
                         break;
                     }
@@ -186,4 +188,16 @@ public class PCSets {
 
 	}
     }
+
+    public List<String> setsToStringList(List<PCSet> sets) {
+	List<String> strings=new ArrayList<>();
+	
+	for(PCSet p:sets){
+	    strings.add(p.toString());
+	}
+	
+	return strings;
+    }
+    
+    
 }

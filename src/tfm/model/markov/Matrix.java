@@ -5,27 +5,207 @@
  */
 package tfm.model.markov;
 
+import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import tfm.model.pcst.PCSet;
 
 /**
  *
  * @author william
  */
-public class Matrix {
+public class Matrix implements Serializable {
 
-    private int[][] matrix;
+    private Double[][] probMatrix;
+    private String[] from;
+    private String[] to;
+    private int size;
+    private String name;
 
-    public Matrix() {
+    private DecimalFormat df;
 
+    private static final long serialVersionUID = 1;
+
+    public Matrix(String name) {
+        df = new DecimalFormat("#.##");
+        this.name = name;
     }
 
-    public void loadSets(List<PCSet> sets) {
+    public void loadStrings(List<String> operations) {
+        countOperations(operations);
 
+        countTransitions(operations);
+
+        calcProbability();
     }
 
-    public void loadOperations(List<String> operations) {
+    private void countOperations(List<String> ops) {
+        //map for operations recount
+        Map<String, Integer> opsMap = new HashMap<String, Integer>();
 
+        for (String op : ops) {
+            if (opsMap.get(op) == null) {
+                opsMap.put(op, 1);
+            } else {
+                opsMap.put(op, opsMap.get(op) + 1);
+            }
+        }
+
+        size = opsMap.keySet().size();
+
+        from = new String[size];
+        to = new String[size];
+        //copy to arrays
+        int i = 0;
+        for (String s : opsMap.keySet()) {
+            from[i] = s;
+            to[i] = s;
+            i++;
+        }
     }
 
+    private void countTransitions(List<String> ops) {
+        probMatrix = init(0.0, size);
+        //count transitions
+        for (int j = 0; j < ops.size() - 1; j++) {
+            probMatrix[index(ops.get(j))][index(ops.get(j + 1))]++;
+        }
+    }
+
+    private Double[][] init(double value, int size) {
+        Double[][] m = new Double[size][size];
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                m[i][j] = value;
+            }
+        }
+
+        return m;
+    }
+
+    private int index(String op) {
+        for (int i = 0; i < from.length; i++) {
+            if (from[i].equals(op)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public void print() {
+        System.out.println(name);
+        System.out.print("* ");
+        for (String s : to) {
+            System.out.print(s + " ");
+        }
+
+        System.out.println("");
+
+        for (int i = 0; i < from.length; i++) {
+            System.out.print(from[i] + " ");
+            for (int j = 0; j < from.length; j++) {
+                System.out.print(df.format(probMatrix[i][j]) + " ");
+            }
+            System.out.println("");
+        }
+    }
+
+    private void calcProbability() {
+        for (int i = 0; i < size; i++) {
+            double rowTotal = rowTotal(i);
+
+            for (int j = 0; j < size; j++) {
+                probMatrix[i][j] = ((double) probMatrix[i][j] / (double) rowTotal);
+            }
+        }
+    }
+
+    private double rowTotal(int row) {
+        double sum = 0;
+
+        for (int j = 0; j < size; j++) {
+            sum += probMatrix[row][j];
+        }
+
+        if (sum == 0) {
+            sum = 1;
+        }
+
+        return sum;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    public List<String> generateOperations(int length) {
+        List<String> ops = new ArrayList<>();
+
+        Random r = new Random();
+        //find random start point
+        int i = r.nextInt(from.length);
+
+        for (int l = 0; l < length; l++) {
+            //generate probability
+            double prob = r.nextDouble();
+            double sum = 0;
+
+            for (int j = 0; j < size; j++) {
+                sum += probMatrix[i][j];
+                if (sum >= prob) {
+                    ops.add(to[j]);
+                    i = j;
+                    break;
+                }
+            }
+        }
+
+        return ops;
+    }
+
+    public List<PCSet> generateSets(int length) {
+        List<PCSet> sets = new ArrayList<>();
+
+        List<String> strings = generateOperations(length);
+
+        for (String s : strings) {
+            sets.add(new PCSet(Integer.parseInt(s.replaceAll("\\[", "").replaceAll("\\]", ""))));
+        }
+
+        //aca voy
+        return sets;
+    }
+
+    public boolean check() {
+        //find loops
+        for (int i = 0; i < size; i++) {
+            if (probMatrix[i][i] == 1.0) {
+                //System.out.println("Warning loop detected!");
+                return false;
+            }
+        }
+
+        //find deadends
+        for (int i = 0; i < size; i++) {
+            double sum = 0;
+            for (int j = 0; j < size; j++) {
+                sum += probMatrix[i][j];
+            }
+            if (sum == 0) {
+                //System.out.println("Warning sum cero in row!");
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

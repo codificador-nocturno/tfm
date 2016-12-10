@@ -12,10 +12,8 @@ import java.util.List;
 import jm.constants.Durations;
 import jm.music.data.Note;
 import jm.music.tools.Mod;
-import tfm.Main;
-import tfm.utils.Utilities;
+import tfm.Refs;
 import tfm.model.pcst.PCSet;
-import tfm.model.pcst.PCSets;
 
 /**
  *
@@ -38,7 +36,7 @@ public class Chord {
         notes = new ArrayList<>();
 
         for (Integer c : set.getClasses()) {
-            notes.add(new Note(Main.pcsets.getNote(c)));
+            notes.add(new Note(Refs.pcsets.getNote(c)));
         }
 
         duration = Durations.QUARTER_NOTE;

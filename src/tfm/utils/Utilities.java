@@ -5,6 +5,7 @@
  */
 package tfm.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,17 +14,29 @@ import java.util.List;
  */
 public class Utilities {
 
-    public void print(List<? extends Object> list) {
-        if (list.isEmpty()) {
-            System.out.println("[empty]");
-            return;
-        }
+    public void printList(List<? extends Object> list) {
+	if (list.isEmpty()) {
+	    System.out.println("[empty]");
+	    return;
+	}
 
-        System.out.println("");
-        for (Object o : list) {
-            System.out.print(o + " ");
-        }
-        System.out.println("");
+	System.out.println("");
+	for (Object o : list) {
+	    System.out.print(o + " ");
+	}
+	System.out.println("");
+    }
+
+    public List<String> multipleToSingleOps(List<String> ops) {
+	List<String> basic=new ArrayList<>();
+		
+	for(String complex:ops){
+	    for(char o:complex.toCharArray()){
+		basic.add(String.valueOf(o));
+	    }
+	}
+	
+	return basic;
     }
 
 }
