@@ -145,20 +145,22 @@ public class Tonnetz {
         return nods;
     }
 
-    private PCSNode apply(PCSNode node, char operation) {
-        switch (operation) {
-            case 'M':
-                return node;
-            case 'L':
-                return node.getL();
-            case 'R':
-                return node.getR();
-            case 'P':
-                return node.getP();
-            default:
-                System.out.println("Warning operation " + operation + " not known.");
-                return null;
+    private PCSNode apply(PCSNode node, Character op) {
+        PCSNode n = null;
+
+        if (op.equals(Operations.T)) {
+            n = node;
+        } else if (op.equals(Operations.L)) {
+            n = node.getL();
+        } else if (op.equals(Operations.R)) {
+            n = node.getR();
+        } else if (op.equals(Operations.P)) {
+            n = node.getP();
+        } else {
+            System.out.println("Warning operation " + op + " not known.");
         }
+
+        return n;
     }
 
     public void print() {
@@ -175,7 +177,7 @@ public class Tonnetz {
                 System.out.print(" L:" + node.getL());
                 System.out.print(" R:" + node.getR());
                 System.out.print(" P:" + node.getP());
-                System.out.print(" M:" + node.getM());
+                System.out.print(" T:" + node.getT());
                 System.out.print(" PP:" + node.getP().getP());
                 System.out.print(" RR:" + node.getR().getR());
                 System.out.print(" LL:" + node.getL().getL());
@@ -257,9 +259,9 @@ public class Tonnetz {
         //start in random node
         PCSNode n = nodes.get(r.nextInt(nodes.size()));
         nods.add(n);
-        
-        for(String o:ops){
-            n=applySingle(n, split(o));
+
+        for (String o : ops) {
+            n = applySingle(n, split(o));
             nods.add(n);
         }
 

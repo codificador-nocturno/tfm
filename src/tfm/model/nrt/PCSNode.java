@@ -80,9 +80,10 @@ public class PCSNode {
     }
 
     /**
-     * @return the M
+     * @return the 
+     * S
      */
-    public PCSNode getM() {
+    public PCSNode getT() {
 	return this;
     }
 

@@ -8,10 +8,13 @@ package tfm.model.markov;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import tfm.model.nrt.Operations;
 import tfm.model.pcst.PCSet;
 
 /**
@@ -35,7 +38,40 @@ public class Matrix implements Serializable {
         this.name = name;
     }
 
-    public void loadStrings(List<String> operations) {
+    public void loadClasses(List<String> operations) {
+        size = 12;
+        from = new String[size];
+        to = new String[size];
+
+        for (int i = 0; i < size; i++) {
+            from[i] = "[" + i + "]";
+            to[i] = "[" + i + "]";
+        }
+
+        probMatrix = init(0.0, size);
+        countTransitions(operations);
+        calcProbability();
+    }
+
+    public void loadSingleOp(List<String> operations) {
+        size = 4;
+        from = new String[size];
+        to = new String[size];
+
+        Character[] ops = Operations.opArray;
+        int i = 0;
+        for (Character op : ops) {
+            from[i] = op.toString();
+            to[i] = op.toString();
+            i++;
+        }
+
+        probMatrix = init(0.0, size);
+        countTransitions(operations);
+        calcProbability();
+    }
+
+    public void loadMultipleOp(List<String> operations) {
         countOperations(operations);
 
         countTransitions(operations);
@@ -45,7 +81,7 @@ public class Matrix implements Serializable {
 
     private void countOperations(List<String> ops) {
         //map for operations recount
-        Map<String, Integer> opsMap = new HashMap<String, Integer>();
+        Map<String, Integer> opsMap = new HashMap<>();
 
         for (String op : ops) {
             if (opsMap.get(op) == null) {
@@ -66,10 +102,14 @@ public class Matrix implements Serializable {
             to[i] = s;
             i++;
         }
+
+        probMatrix = init(0.0, size);
+
+        Collections.sort(Arrays.asList(from));
+        Collections.sort(Arrays.asList(to));
     }
 
     private void countTransitions(List<String> ops) {
-        probMatrix = init(0.0, size);
         //count transitions
         for (int j = 0; j < ops.size() - 1; j++) {
             probMatrix[index(ops.get(j))][index(ops.get(j + 1))]++;

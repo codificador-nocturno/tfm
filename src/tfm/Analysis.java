@@ -38,8 +38,6 @@ public class Analysis {
             "To_Live_Is_To_Die_guitar_5",
             "To_Live_Is_To_Die_guitar_6",
             "To_Live_Is_To_Die_guitar_7"
-            //"Ejemplo_analisis_acordes",
-            //"Ejemplo_analisis_tonos"
         };
 
         for (String fName : files) {
@@ -58,7 +56,7 @@ public class Analysis {
         //to sets
         List<PCSet> sets = Refs.pcsets.convertChordsToSets(chords);
 
-        //single notes
+        //single set
         List<PCSet> single = sa.extractSets(sets, 1, 1);
 
         if (single.size() > 0) {
@@ -66,7 +64,7 @@ public class Analysis {
 
             //extract markov matrix
             Matrix m = new Matrix(name + "_classes");
-            m.loadStrings(Refs.pcsets.setsToStringList(single));
+            m.loadClasses(Refs.pcsets.setsToStringList(single));
             if (m.check()) {
                 m.print();
                 Refs.matrices.writeToDisk(m);
@@ -98,7 +96,7 @@ public class Analysis {
 
             //compund op matrix
             Matrix m = new Matrix(name + "_multiple");
-            m.loadStrings(ops);
+            m.loadMultipleOp(ops);
             if (m.check()) {
                 m.print();
                 Refs.matrices.writeToDisk(m);
@@ -106,7 +104,7 @@ public class Analysis {
 
             //single op matrix
             m = new Matrix(name + "_single");
-            m.loadStrings(Refs.utilities.multipleToSingleOps(ops));
+            m.loadSingleOp(Refs.utilities.multipleToSingleOps(ops));
             if (m.check()) {
                 m.print();
                 Refs.matrices.writeToDisk(m);

@@ -19,7 +19,7 @@ public class Composition {
 
     public static void main(String[] args) throws Exception {
         //read serialized matrices
-        Matrix m = Refs.matrices.readFromDisk("Ejemplo_analisis_acordes_single");
+        Matrix m = Refs.matrices.readFromDisk("The_Call_Of_Ktulu_guitar_2_single");
         //m.print();
         List<String> single = m.generateSteps(3);
         //Refs.utilities.printList(single);
@@ -29,9 +29,9 @@ public class Composition {
         //from nodes create list of chords
         List<Chord> chords = Refs.chords.convertNodesToChords(nodes);
         Refs.utilities.printList(chords);
-        Refs.chords.writeChordsToMidi(chords, "Ejemplo_analisis_acordes_single_algoritmic", 120);
+        Refs.chords.writeChordsToMidi(chords, "The_Call_Of_Ktulu_guitar_2_single_algorithmic", 120);
 
-        m = Refs.matrices.readFromDisk("Ejemplo_analisis_acordes_multiple");
+        m = Refs.matrices.readFromDisk("The_Call_Of_Ktulu_guitar_2_multiple");
         //m.print();
         List<String> multiple = m.generateSteps(3);
         //Refs.utilities.printList(multiple);
@@ -40,14 +40,15 @@ public class Composition {
         Refs.utilities.printList(nodes);
         chords = Refs.chords.convertNodesToChords(nodes);
         Refs.utilities.printList(chords);
-        Refs.chords.writeChordsToMidi(chords, "Ejemplo_analisis_acordes_multiple_algoritmic", 120);
+        Refs.chords.writeChordsToMidi(chords, "The_Call_Of_Ktulu_guitar_2_multiple_algorihtmic", 120);
 
-        m = Refs.matrices.readFromDisk("Ejemplo_analisis_tonos_classes");
-        m.print();
+        m = Refs.matrices.readFromDisk("The_Call_Of_Ktulu_guitar_2_classes");
+        //m.print();
         List<PCSet> sets = m.generateSets(10);
         Refs.utilities.printList(sets);
-        chords=Refs.chords.convertSetsToChords(sets);
-        Refs.chords.writeChordsToMidi(chords, "Ejemplo_analisis_tonos_classes_algoritmic", 120);
+        chords = Refs.chords.convertSetsToChords(sets);
+        Refs.utilities.printList(chords);
+        Refs.chords.writeChordsToMidi(chords, "The_Call_Of_Ktulu_guitar_2_classes_algoritmic", 120);
     }
 
 }
