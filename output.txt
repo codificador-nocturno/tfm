@@ -1,0 +1,365 @@
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'Orion_guitar_1.mid' read into score 'Untitled Score' Tempo = 128.0
+-------------------------------------------------------------
+
+PR T RP PR RP PR LPLP LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL LRLR PR RP PR LPL LRL LPLR LR RP T PR RL LPLP RP T LPLR LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR LR PLPR T PR RL T LR RP LP 
+Orion_guitar_1_single
+* L P R T 
+L 0,11 0,24 0,45 0,21 
+P 0,21 0,08 0,45 0,26 
+R 0,3 0,28 0,39 0,04 
+T 0,45 0,5 0,05 0 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'Orion_guitar_2.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+
+T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T LPLP LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL L T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T RP T T PLR PLR T T PLR LRL T T T T T T LP LRLR T T PLR LRL T T T T T T LPLR T T T LR T T T RL LRLR LPR T R T PL LPLR LRLR LP T LR T PL T RL T LP T LR T PL RL LP LR PL RL LP T LR T PL LP LP LR PL RL LP LR PL RL LP LR PL RL LP LR PL RL T RL LR RP T PR RL LRLR T T LPLR LRLR T T T LR T T T T T T LP LRLR T T LPLR PL T T T T T T LP LR T T LR T T LPLR LRLR T T T LR T T T T T T LP LRLR T T LPLR PL T T T T T T LP LR T T RL LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP 
+Orion_guitar_2_multiple
+* L LP LPLP LPLR LPR LR LRL LRLR PL PLP PLR PR R RL RP T 
+L 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+LP 0 0,07 0 0 0 0,5 0 0,21 0 0 0 0 0 0 0 0,21 
+LPLP 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 
+LPLR 0 0 0 0 0 0 0 0,17 0,11 0 0 0 0 0 0 0,72 
+LPR 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+LR 0 0 0 0 0 0 0 0 0,17 0 0 0 0 0 0,52 0,31 
+LRL 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+LRLR 0 0,12 0 0 0,12 0 0 0 0 0 0 0 0 0 0 0,75 
+PL 0 0,09 0 0,09 0 0 0 0 0 0 0 0 0 0,55 0 0,27 
+PLP 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+PLR 0 0 0 0 0 0 0,5 0 0 0 0,25 0 0 0 0 0,25 
+PR 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 
+R 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+RL 0,04 0,21 0 0 0 0,08 0 0,08 0 0 0 0 0 0 0 0,58 
+RP 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+T 0 0,03 0 0,08 0,05 0,09 0 0 0,02 0,04 0,01 0,06 0 0,02 0 0,59 
+Orion_guitar_2_single
+* L P R T 
+L 0,07 0,35 0,46 0,12 
+P 0,5 0 0,24 0,25 
+R 0,3 0,18 0,21 0,31 
+T 0,25 0,14 0,03 0,59 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'Orion_guitar_3.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+
+T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T LPLP LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL L T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T PLP T T T T LPLR T T T LPR T T T RP T T PLR PLR T T PLR LRL T T T T T T LP LRLR T T PLR LRL T T T T T T LPLR T T T LR T T T RL LRLR LPR T R T PL LPLR LRLR LP T LR T PL T RL T LP T LR T PL RL LP LR PL RL LP T LR T PL LP LP LR PL RL LP LR PL RL LP LR PL RL LP LR PL RL T RL LR RP T PR RL LRLR T T LPLR LRLR T T T LR T T T T T T LP LRLR T T LPLR PL T T T T T T LP LR T T LR T T LPLR LRLR T T T LR T T T T T T LP LRLR T T LPLR PL T T T T T T LP LR T T RL LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP T PR RL T LR RP 
+Orion_guitar_3_multiple
+* L LP LPLP LPLR LPR LR LRL LRLR PL PLP PLR PR R RL RP T 
+L 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+LP 0 0,07 0 0 0 0,5 0 0,21 0 0 0 0 0 0 0 0,21 
+LPLP 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 
+LPLR 0 0 0 0 0 0 0 0,17 0,11 0 0 0 0 0 0 0,72 
+LPR 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+LR 0 0 0 0 0 0 0 0 0,17 0 0 0 0 0 0,52 0,31 
+LRL 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+LRLR 0 0,12 0 0 0,12 0 0 0 0 0 0 0 0 0 0 0,75 
+PL 0 0,09 0 0,09 0 0 0 0 0 0 0 0 0 0,55 0 0,27 
+PLP 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+PLR 0 0 0 0 0 0 0,5 0 0 0 0,25 0 0 0 0 0,25 
+PR 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 
+R 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+RL 0,04 0,21 0 0 0 0,08 0 0,08 0 0 0 0 0 0 0 0,58 
+RP 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+T 0 0,03 0 0,08 0,05 0,09 0 0 0,02 0,04 0,01 0,06 0 0,02 0 0,59 
+Orion_guitar_3_single
+* L P R T 
+L 0,07 0,35 0,46 0,12 
+P 0,5 0 0,24 0,25 
+R 0,3 0,18 0,21 0,31 
+T 0,25 0,14 0,03 0,59 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'The_Call_Of_Ktulu_guitar_1.mid' read into score 'Untitled Score' Tempo = 140.00013732910156
+-------------------------------------------------------------
+
+T 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'The_Call_Of_Ktulu_guitar_2.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+The_Call_Of_Ktulu_guitar_2_classes
+* [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] 
+[0] 0 0 0,15 0 0,15 0,11 0,07 0,1 0 0,11 0,25 0,06 
+[1] 0 0 1 0 0 0 0 0 0 0 0 0 
+[2] 0,05 0 0,05 0,02 0,04 0,11 0,02 0,09 0 0,53 0,05 0,05 
+[3] 0 0 0 0,79 0,03 0 0 0,03 0,04 0,11 0 0 
+[4] 0 0 0 0,11 0,23 0,08 0 0,06 0 0,13 0,23 0,17 
+[5] 0 0 0,34 0 0 0,34 0 0,04 0 0,21 0,06 0 
+[6] 0 0,14 0 0 0 0 0,57 0 0 0,14 0 0,14 
+[7] 0,11 0 0,17 0,03 0,08 0,03 0 0,39 0 0,12 0,06 0 
+[8] 0,33 0 0 0 0 0 0 0 0,67 0 0 0 
+[9] 0,1 0 0,49 0,01 0,09 0 0 0,04 0 0,18 0,05 0,05 
+[10] 0,29 0,06 0,17 0,02 0,25 0 0 0,02 0 0,1 0,1 0 
+[11] 0,56 0 0,22 0 0 0 0,11 0,11 0 0 0 0 
+
+T T LP LPRP T T PLPR PL T LP LPRP T T PLPR PL T T LP LPRP T T PLPR PL T LP LPRP T T PLPR PL T T LP LPRP T T PLPR PL T LP LPRP T T PLPR PL T T LP LPRP T T PLPR PL T LP LPRP T T PLPR PL T T LP LPRP T T PLPR PL T LR T T T LP LPLR LRLR RP PR LP PL T LPLR LRLR RP PR LP PL T T T T T LR T T T T T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LPRP PLPR PLPR LPLR PLPR PLPR LPLR PLPR PLPR LPLR PLPR PLPR LRLR T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LP T T T T T T LR LPRP T PLPR T LRLR LPRP T T T PLPR PLPR LPRP PLPR LPRP PLPR LPRP PLPR T RLR RLR RLR RLR RLR LPR PLPR LPRP PLPR LPRP PLPR LPRP LR LPRP LPLP LR LPRP LPLP LR LPRP LPLP LR LPRP LPLP LR LPRP LPLP LR LPRP LPLP LR LPRP LPLP LR LPRP LPRP R LPR LP R LPR LP R LPR LP R LPR RL LP LPRP T T PLPR PL T T LP LPRP T T PLPR PL T LP LPRP T T PLPR PL T T LP LPRP T T PLPR PL T LP LPRP T T PLPR PL T T LP LPRP T T PLPR PL T LP LPRP T T PLPR 
+The_Call_Of_Ktulu_guitar_2_multiple
+* LP LPLP LPLR LPR LPRP LR LRLR PL PLPR PR R RL RLR RP T 
+LP 0 0 0,03 0 0,4 0 0 0,05 0 0 0,07 0 0 0 0,45 
+LPLP 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 
+LPLR 0 0 0 0 0 0 0,4 0 0,6 0 0 0 0 0 0 
+LPR 0,6 0 0 0 0 0 0 0 0,2 0 0 0,2 0 0 0 
+LPRP 0 0,13 0 0 0,02 0,02 0 0 0,11 0 0,02 0 0 0 0,7 
+LR 0 0 0 0 0,93 0 0 0 0 0 0 0 0 0 0,07 
+LRLR 0,78 0 0 0 0,09 0 0 0 0 0 0 0 0 0,09 0,04 
+PL 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+PLPR 0 0 0,06 0 0,12 0 0,02 0,29 0,1 0 0 0 0 0 0,41 
+PR 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+R 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 
+RL 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+RLR 0 0 0 0,2 0 0 0 0 0 0 0 0 0,8 0 0 
+RP 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
+T 0,07 0 0 0 0 0,09 0,09 0 0,16 0 0 0 0 0 0,58 
+The_Call_Of_Ktulu_guitar_2_single
+* L P R T 
+L 0 0,62 0,32 0,06 
+P 0,39 0,03 0,39 0,19 
+R 0,47 0,38 0,03 0,11 
+T 0,25 0,16 0 0,58 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'The_Call_Of_Ktulu_guitar_3.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'The_Call_Of_Ktulu_guitar_4.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+
+T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR RP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LPLR T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR RP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T RP RLR LPR LPLR RLR LPR RL T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T 
+The_Call_Of_Ktulu_guitar_4_multiple
+* LP LPLR LPR LPRP LR LRLR PLPR R RL RLR RP T 
+LP 0 0 0 0 0 0 0 0 0 0 0 1 
+LPLR 0 0 0 0 0 0 0 0 0 0,5 0 0,5 
+LPR 0 0,03 0 0 0 0 0 0 0,03 0 0 0,93 
+LPRP 0 0 0 0 0 0 0 0 0 0 0 1 
+LR 0 0 0 1 0 0 0 0 0 0 0 0 
+LRLR 0,75 0 0 0 0 0 0 0 0 0 0,25 0 
+PLPR 0 0 0 0 0 1 0 0 0 0 0 0 
+R 0 0 0 0 0 0 0 0 0 0 0 1 
+RL 0 0 0 0 0 0 0 0 0 0 0 1 
+RLR 0 0 1 0 0 0 0 0 0 0 0 0 
+RP 0 0 0 0 0 0 0 0 0 0,33 0 0,67 
+T 0,07 0 0,08 0 0,02 0 0,02 0,08 0 0 0 0,71 
+The_Call_Of_Ktulu_guitar_4_single
+* L P R T 
+L 0 0,73 0,26 0,01 
+P 0,1 0 0,48 0,42 
+R 0,33 0,1 0,04 0,53 
+T 0,18 0,02 0,09 0,71 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'The_Call_Of_Ktulu_guitar_5.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+
+T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR RP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LPLR T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR LP T T T T T T LR LPRP T T T T T PLPR LRLR RP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T RP RLR LPR LPLR RLR LPR RL T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T LP T T T R T T T LPR T T T 
+The_Call_Of_Ktulu_guitar_5_multiple
+* LP LPLR LPR LPRP LR LRLR PLPR R RL RLR RP T 
+LP 0 0 0 0 0 0 0 0 0 0 0 1 
+LPLR 0 0 0 0 0 0 0 0 0 0,5 0 0,5 
+LPR 0 0,03 0 0 0 0 0 0 0,03 0 0 0,93 
+LPRP 0 0 0 0 0 0 0 0 0 0 0 1 
+LR 0 0 0 1 0 0 0 0 0 0 0 0 
+LRLR 0,75 0 0 0 0 0 0 0 0 0 0,25 0 
+PLPR 0 0 0 0 0 1 0 0 0 0 0 0 
+R 0 0 0 0 0 0 0 0 0 0 0 1 
+RL 0 0 0 0 0 0 0 0 0 0 0 1 
+RLR 0 0 1 0 0 0 0 0 0 0 0 0 
+RP 0 0 0 0 0 0 0 0 0 0,33 0 0,67 
+T 0,07 0 0,08 0 0,02 0 0,02 0,08 0 0 0 0,71 
+The_Call_Of_Ktulu_guitar_5_single
+* L P R T 
+L 0 0,73 0,26 0,01 
+P 0,1 0 0,48 0,42 
+R 0,33 0,1 0,04 0,53 
+T 0,18 0,02 0,09 0,71 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'To_Live_Is_To_Die_guitar_1.mid' read into score 'Untitled Score' Tempo = 55.999977111816406
+-------------------------------------------------------------
+
+T R T RLR T RL T T RP PR L R PLPR PR LR T T T T RP LRP T LRP LRP LRL T R RL LR RLR T RL T T RP PR L R T T T T T RP PR T L T LRP LRP LRL T R T RLR T RL T T LR T PLPR PR L R T T T T T RP LRP T LRP LRP LRL T LR RP LRP L T T T T RP LRP T LRP LRP LRL T R T RLR T RL T T RP PR L R T T T T T RP LRP T LRP LRP LRL T R T RLR T RL T T RP PR L R T T T T T RP LRP T LRP LRP LRL T 
+To_Live_Is_To_Die_guitar_1_multiple
+* L LR LRL LRP PLPR PR R RL RLR RP T 
+L 0 0 0 0 0 0 0,71 0 0 0 0,29 
+LR 0 0 0 0 0 0 0 0 0,25 0,25 0,5 
+LRL 0 0 0 0 0 0 0 0 0 0 1 
+LRP 0,06 0 0,33 0,33 0 0 0 0 0 0 0,28 
+PLPR 0 0 0 0 0 1 0 0 0 0 0 
+PR 0,71 0,14 0 0 0 0 0 0 0 0 0,14 
+R 0 0 0 0 0,1 0 0 0,1 0 0 0,8 
+RL 0 0,17 0 0 0 0 0 0 0 0 0,83 
+RLR 0 0 0 0 0 0 0 0 0 0 1 
+RP 0 0 0 0,55 0 0,45 0 0 0 0 0 
+T 0,02 0,03 0 0,1 0,02 0 0,08 0,08 0,07 0,16 0,44 
+To_Live_Is_To_Die_guitar_1_single
+* L P R T 
+L 0,02 0,04 0,7 0,24 
+P 0,53 0,12 0,23 0,12 
+R 0,31 0,43 0,04 0,22 
+T 0,15 0,02 0,39 0,44 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'To_Live_Is_To_Die_guitar_2.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+
+T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR RLR T T PLPR T T LPRP T T LP T T PL T T PLPR T T LPRP T T LP T T PL PLPR LPRP LP PL PLPR LPRP LP PLP T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR PLPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR RLR T T PLPR T T LPRP T T LP T T PL T T PLPR T T LPRP T T LP T T PL PLPR LPRP LP PL PLPR LPRP LP PLP T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR PLPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR RLR T LP PL LPLP LPRP LPLR PL LP PL T LR LPRP LPRP LR T LP PL LPLP LPRP LPLR PL T T T LP PL T LR LPRP LPRP LRP T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR PLPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR RLR T T PLPR T T LPRP T T LP T T PL T T PLPR T T LPRP T T LP T T PL PLPR LPRP LP PL PLPR LPRP LP PLP T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR PLPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR PLPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR PLPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR RLR T T PLPR T T LPRP T T LP T T PL T T PLPR T T LPRP T T LP T T PL PLPR LPRP LP PL PLPR LPRP LP PLP T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR PLPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LRLR RLR T T T PLPR T T T PL T T T RL LPLR LRLR T LPLR T PL T PLPR PR T LPLR PL T T LP T T T LRLR T LPLR T PL T PLPR PR T LPLR PL T T LP T LRLR T LPLR T PL T PLPR PR T LPLR PL T T LP T T T LRLR T LPLR T PL T PLPR PR T LPLR PL T T LP T LRLR T T T T T LPLR T T T T T LRLR T T T T T LPLR T T T T T LPR LPLPR T T T T T T T T LPLPR PRP T T T T T T T T T T LRLR T T T T T T LPLPR T LPLPR T T T T T T T T T T T LRLR R L T LR P LPRP PLP T T T R LPRP PLPR T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T T T LPLPR LRLR L T T T LRLR PLPR T T T LPLPR LRLR RLR T T PLPR T LPRP PLPR T T T LPLPR LRLR L T T T LP LPRP PLPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T T LPLPR LRLR L T T T LRLR PLPR T T T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR L PLR LRLR L T T LRLR RLR T LP PL LPLP LPRP LPLR PL LP P L T LR LPRP LPRP LR T LP PL LPLP LPRP LPLR PL L T L T T LP PL T LR LPRP LPRP LR T T L L T PLPR T T T T LPRP T T T T LP LRL LRL LPLR LPRP T PLPR T T LPR LPR LPR T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T T LPLPR LRLR L T T T LRLR PLPR T T T T T LPLPR LRLR RLR T PLPR T LPRP PLPR T T T LPLPR LRLR LPLR LRLR L T T T LRLR PLPR T T T LPRP PLPR T T T T T T LPRP PLPR T T T T T T T T T T LPRP PLPR T T T LPLPR LRLR L T T T LRLR 
+To_Live_Is_To_Die_guitar_2_multiple
+* L LP LPLP LPLPR LPLR LPR LPRP LR LRL LRLR LRP P PL PLP PLPR PLR PR PRP R RL RLR T 
+L 0,04 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0,04 0 0 0 0 0 0,93 
+LP 0 0 0 0 0 0 0,03 0 0,03 0 0 0,03 0,37 0,13 0 0 0 0 0 0 0 0,4 
+LPLP 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+LPLPR 0 0 0 0 0 0 0 0 0 0,91 0 0 0 0 0 0 0 0,02 0 0 0 0,07 
+LPLR 0 0 0 0 0 0 0,06 0 0 0,12 0 0 0,47 0 0 0 0 0 0 0 0 0,35 
+LPR 0 0 0 0,25 0 0,5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0,25 
+LPRP 0 0,15 0 0 0,07 0 0,07 0,05 0 0 0,02 0 0 0,02 0,44 0 0 0 0 0 0 0,18 
+LR 0 0 0 0 0 0 0,5 0 0 0 0 0,12 0 0 0 0 0 0 0 0 0 0,38 
+LRL 0 0 0 0 0,5 0 0 0 0,5 0 0 0 0 0 0 0 0 0 0 0 0 0 
+LRLR 0,31 0 0 0 0,01 0 0 0 0 0 0 0 0 0 0,16 0 0 0 0,01 0 0,39 0,1 
+LRP 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+P 0,5 0 0 0 0 0 0,5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+PL 0,03 0,06 0,12 0 0 0 0 0 0 0 0 0 0 0 0,25 0 0 0 0 0 0 0,53 
+PLP 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+PLPR 0 0 0 0 0 0 0,1 0 0 0 0 0 0 0 0 0 0,05 0 0 0 0 0,84 
+PLR 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 
+PR 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+PRP 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+R 0,5 0 0 0 0 0 0,5 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+RL 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+RLR 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+T 0 0,05 0 0,1 0,02 0 0,07 0,01 0 0,06 0 0 0,03 0 0,08 0 0 0 0 0 0 0,57 
+To_Live_Is_To_Die_guitar_2_single
+* L P R T 
+L 0,02 0,54 0,36 0,08 
+P 0,45 0,09 0,4 0,06 
+R 0,44 0,2 0,07 0,29 
+T 0,32 0,11 0 0,57 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'To_Live_Is_To_Die_guitar_3.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+
+LPLR T P T T T T T 
+To_Live_Is_To_Die_guitar_3_multiple
+* LPLR P T 
+LPLR 0 0 1 
+P 0 0 1 
+T 0 0,2 0,8 
+To_Live_Is_To_Die_guitar_3_single
+* L P R T 
+L 0 0,5 0,5 0 
+P 0,5 0 0 0,5 
+R 0 0 0 1 
+T 0 0,2 0 0,8 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'To_Live_Is_To_Die_guitar_4.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+To_Live_Is_To_Die_guitar_4_classes
+* [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] 
+[0] 0,22 0,06 0,14 0 0,14 0 0 0,14 0 0,08 0 0,22 
+[1] 0,11 0,06 0,17 0 0,11 0 0,33 0 0 0 0 0,22 
+[2] 0,08 0,05 0,21 0,03 0,08 0,08 0,05 0,21 0 0 0 0,21 
+[3] 0 0 0 0,75 0,25 0 0 0 0 0 0 0 
+[4] 0,15 0,4 0,07 0,03 0,15 0,03 0,05 0,03 0 0,05 0 0,05 
+[5] 0 0 0,88 0 0,12 0 0 0 0 0 0 0 
+[6] 0 0,1 0,06 0,02 0,08 0,06 0,41 0,03 0 0,08 0 0,16 
+[7] 0,03 0 0,04 0 0,04 0 0,05 0,52 0,07 0,05 0 0,19 
+[8] 0 0 0 0 0 0 0,45 0,36 0 0,18 0 0 
+[9] 0,09 0 0 0 0,14 0 0 0,12 0,14 0,37 0 0,14 
+[10] 0,08 0 0 0 0 0 0 0 0 0,31 0,62 0 
+[11] 0,11 0,11 0,04 0,01 0,03 0 0,17 0,14 0 0,1 0,07 0,22 
+
+T 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'To_Live_Is_To_Die_guitar_5.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'To_Live_Is_To_Die_guitar_6.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
+
+PLR P LRL L PLR P R RLR PLR P T LR PLR P R RLR PLR P LRL L PLR P R RLR PLR P T LR PLR P R RLR PLR P T LR PLR P R 
+To_Live_Is_To_Die_guitar_6_multiple
+* L LR LRL P PLR R RLR T 
+L 0 0 0 0 1 0 0 0 
+LR 0 0 0 0 1 0 0 0 
+LRL 1 0 0 0 0 0 0 0 
+P 0 0 0,2 0 0 0,5 0 0,3 
+PLR 0 0 0 1 0 0 0 0 
+R 0 0 0 0 0 0 1 0 
+RLR 0 0 0 0 1 0 0 0 
+T 0 1 0 0 0 0 0 0 
+To_Live_Is_To_Die_guitar_6_single
+* L P R T 
+L 0,09 0,09 0,83 0 
+P 0,6 0 0,25 0,15 
+R 0,22 0,63 0,15 0 
+T 1 0 0 0 
+--------------------- Reading MIDI File ---------------------
+MIDI file type = 1
+Number of tracks = 1
+ppqn = 480
+Reading Track ..........
+Convert SMF to JM
+MIDI file 'To_Live_Is_To_Die_guitar_7.mid' read into score 'Untitled Score' Tempo = 120.0
+-------------------------------------------------------------
