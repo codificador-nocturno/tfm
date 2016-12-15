@@ -10,6 +10,7 @@ import tfm.model.chords.Chord;
 import tfm.model.markov.Matrix;
 import tfm.model.nrt.PCSNode;
 import tfm.model.pcst.PCSet;
+import tfm.utils.NormalDistribution;
 
 /**
  *
@@ -28,6 +29,10 @@ public class Composition {
         Refs.utilities.printList(nodes);
         //from nodes create list of chords
         List<Chord> chords = Refs.chords.convertNodesToChords(nodes);
+        NormalDistribution nd = new NormalDistribution(1.0, 2.0);
+        for (Chord c : chords) {
+            c.setDuration(nd.generateNextDuration());
+        }
         Refs.utilities.printList(chords);
         Refs.chords.writeChordsToMidi(chords, "The_Call_Of_Ktulu_guitar_2_single_algorithmic", 120);
 
@@ -40,6 +45,10 @@ public class Composition {
         Refs.utilities.printList(nodes);
         chords = Refs.chords.convertNodesToChords(nodes);
         Refs.utilities.printList(chords);
+        nd = new NormalDistribution(1.0, 2.0);
+        for (Chord c : chords) {
+            c.setDuration(nd.generateNextDuration());
+        }
         Refs.chords.writeChordsToMidi(chords, "The_Call_Of_Ktulu_guitar_2_multiple_algorihtmic", 120);
 
         m = Refs.matrices.readFromDisk("The_Call_Of_Ktulu_guitar_2_classes");
@@ -48,6 +57,10 @@ public class Composition {
         Refs.utilities.printList(sets);
         chords = Refs.chords.convertSetsToChords(sets);
         Refs.utilities.printList(chords);
+        nd = new NormalDistribution(2.0, 3.0);
+        for (Chord c : chords) {
+            c.setDuration(nd.generateNextDuration());
+        }
         Refs.chords.writeChordsToMidi(chords, "The_Call_Of_Ktulu_guitar_2_classes_algoritmic", 120);
     }
 
