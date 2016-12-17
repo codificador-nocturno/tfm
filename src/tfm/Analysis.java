@@ -20,8 +20,15 @@ import tfm.model.pcst.PCSet;
 public class Analysis {
 
     public static void main(String[] args) throws Exception {
-        Analysis m = new Analysis();
+        Analysis a = new Analysis();
+        a.analize();
+        System.out.println("Valid: "+a.valid+" Not valid: "+a.notValid);
+    }
 
+    private int valid = 0;
+    private int notValid = 0;
+
+    private void analize() throws Exception {
         String[] files = {
             "Orion_guitar_1",
             "Orion_guitar_2",
@@ -45,11 +52,11 @@ public class Analysis {
             ChordsAnalysis ca = new ChordsAnalysis(fName);
             ca.read();
             List<Chord> allChords = ca.scanAll();
-            m.singleNotes(fName, allChords, sa);
-            m.chords(fName, allChords, sa);
+            singleNotes(fName, allChords, sa);
+            chords(fName, allChords, sa);
         }
 
-        //m.histograms();
+        //m.histograms(); 
     }
 
     private void singleNotes(String name, List<Chord> chords, SetsAnalysis sa) throws Exception {
@@ -68,6 +75,9 @@ public class Analysis {
             if (m.check()) {
                 m.print();
                 Refs.matrices.writeToDisk(m);
+                valid++;
+            } else {
+                notValid++;
             }
         }
     }
@@ -100,6 +110,9 @@ public class Analysis {
             if (m.check()) {
                 m.print();
                 Refs.matrices.writeToDisk(m);
+                valid++;
+            } else {
+                notValid++;
             }
 
             //single op matrix
@@ -108,6 +121,9 @@ public class Analysis {
             if (m.check()) {
                 m.print();
                 Refs.matrices.writeToDisk(m);
+                valid++;
+            } else {
+                notValid++;
             }
         }
 

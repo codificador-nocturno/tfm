@@ -7,16 +7,14 @@ package tfm.model.chords;
 
 import java.util.ArrayList;
 import java.util.List;
-import jm.constants.Durations;
 import jm.midi.MidiUtil;
-import jm.music.data.Note;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
-import jm.music.tools.Mod;
 import jm.util.Write;
 import tfm.model.nrt.PCSNode;
 import tfm.model.pcst.PCSet;
+import tfm.utils.NormalDistribution;
 
 /**
  *
@@ -30,18 +28,6 @@ public class Chords {
         for (PCSet set : sets) {
             Chord c = new Chord(set);
             chords.add(c);
-        }
-
-        return chords;
-    }
-
-    public List<Chord> nodesToChords(List<PCSNode> nodes) {
-        List<Chord> chords = new ArrayList<>();
-
-        for (PCSNode n : nodes) {
-            Chord chord = new Chord(n.getSet());
-            chord.setDuration(Durations.QUARTER_NOTE);
-            chords.add(chord);
         }
 
         return chords;
@@ -82,5 +68,21 @@ public class Chords {
         }
 
         return chords;
+    }
+
+    public Phrase convertChordsToPhrase(List<Chord> chords) {
+        Phrase phrase = new Phrase();
+
+        for (Chord c : chords) {
+            phrase.addChord(c.getPitchesArray(), c.getDuration());
+        }
+
+        return phrase;
+    }
+
+    public void applyDuration(List<Chord> chords, NormalDistribution nd) {
+        for (Chord c : chords) {
+            c.setDuration(nd.generateNextDuration());
+        }
     }
 }
