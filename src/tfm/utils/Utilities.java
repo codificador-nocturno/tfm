@@ -7,6 +7,9 @@ package tfm.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import jm.constants.Durations;
+import jm.music.data.Note;
+import jm.music.data.Phrase;
 
 /**
  *
@@ -37,6 +40,22 @@ public class Utilities {
 	}
 	
 	return basic;
+    }
+
+    public Phrase generateSilences(Phrase phrase) {
+	Phrase p=new Phrase();
+	
+	for(Object o:phrase.getNoteList()){
+	    Note n=(Note) o;
+	    
+	    Note nn=new Note();
+	    nn.setDuration(n.getDuration());
+	    nn.setPitch(Note.REST);
+	    
+	    p.add(nn);
+	}
+	
+	return p;
     }
 
 }

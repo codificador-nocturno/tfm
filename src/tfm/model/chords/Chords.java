@@ -12,6 +12,7 @@ import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
 import jm.util.Write;
+import tfm.Refs;
 import tfm.model.nrt.PCSNode;
 import tfm.model.pcst.PCSet;
 import tfm.utils.NormalDistribution;
@@ -70,13 +71,14 @@ public class Chords {
         return chords;
     }
 
-    public Phrase convertChordsToPhrase(List<Chord> chords) {
+    public Phrase convertChordsToPhrase(List<Chord> chords, double tempo) {
         Phrase phrase = new Phrase();
 
         for (Chord c : chords) {
             phrase.addChord(c.getPitchesArray(), c.getDuration());
         }
 
+	phrase.setTempo(tempo);
         return phrase;
     }
 
@@ -84,5 +86,15 @@ public class Chords {
         for (Chord c : chords) {
             c.setDuration(nd.generateNextDuration());
         }
+    }
+
+    public List<Chord> duplicate(List<Chord> chords) {
+	List<Chord> copy=new ArrayList<>();
+	
+	for(Chord c:chords){
+	    copy.add(c.duplicate());
+	}
+	
+	return copy;
     }
 }

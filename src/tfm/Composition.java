@@ -7,12 +7,16 @@ package tfm;
 
 import java.util.ArrayList;
 import java.util.List;
+import jm.constants.Pitches;
 import jm.constants.ProgramChanges;
+import jm.music.data.Note;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
 import jm.music.tools.Mod;
+import jm.util.View;
 import jm.util.Write;
+import jm.util.Play;
 import tfm.model.chords.Chord;
 import tfm.model.markov.Matrix;
 import tfm.model.nrt.PCSNode;
@@ -38,20 +42,53 @@ public class Composition {
 
     private void createSong() throws Exception {
         Score score = new Score();
-        score.setNumerator(4);
         score.setDenominator(4);
-        Part guitarPart = new Part();
-        score.addPart(guitarPart);        
+        score.setNumerator(4);
+
+        Part guitarPart = new Part("Guitar");
+        Part bassPart = new Part("Bass");
+
+        score.add(guitarPart);
+        score.add(bassPart);
+
         guitarPart.setInstrument(ProgramChanges.DISTORTED_GUITAR);
+        bassPart.setInstrument(ProgramChanges.ELECTRIC_BASS);
+
         loadMatrices();
 
-        Phrase f1 = generate(6, 26, 0.5, 1, 240);
-        Mod.transpose(f1, -12);
-        guitarPart.appendPhrase(f1);
+        //generate first fragment
+        //chords
+        List<Chord> c1 = generateChords(1, 5, 1, 2);
+        List<Chord> c2 = Refs.chords.duplicate(c1);
 
-        Phrase f2 = f1.copy();
-        Mod.transpose(f2, +6);
-        guitarPart.appendPhrase(f2);
+        Refs.chords.transpose(c1, -12);
+        Phrase g1 = Refs.chords.convertChordsToPhrase(c1, 120);
+        guitarPart.appendPhrase(g1);
+        //bass
+        Phrase b1 = Refs.chords.convertChordsToPhrase(generateBass(c1), 120);
+        bassPart.appendPhrase(b1);
+
+        //copy and transpose f1
+        Refs.chords.transpose(c2, 6);
+        Phrase g2 = Refs.chords.convertChordsToPhrase(c2, 120);
+        guitarPart.appendPhrase(g2);
+        //bass
+        Phrase b2 = Refs.chords.convertChordsToPhrase(generateBass(c2), 120);
+        bassPart.appendPhrase(b2);
+
+        //repeat f1 an f2 bass part only
+        guitarPart.appendPhrase(g1);
+        bassPart.appendPhrase(b1);
+        guitarPart.appendPhrase(g2);
+        bassPart.appendPhrase(b2);
+
+        //solo
+        List<Chord> c3 = generateChords(6, 60, 0.5, 1.0);
+        Phrase g3 = Refs.chords.convertChordsToPhrase(c3, 180);
+        guitarPart.appendPhrase(g3);
+        //bass
+        Phrase b3 = Refs.chords.convertChordsToPhrase(generateBass(c3), 180);
+        bassPart.appendPhrase(b3);
 
         Write.midi(score, "instru-metal-code.mid");
     }
@@ -89,9 +126,8 @@ public class Composition {
         }
     }
 
-    private Phrase generate(int matrixNumber, int length, double mean, double deviation, double tempo) {
+    private List<Chord> generateChords(int matrixNumber, int length, double mean, double deviation) {
         Matrix m = matrices.get(matrixNumber);
-        Phrase p;
         List<Chord> chords;
 
         if (m.getName().contains("_classes")) {
@@ -109,10 +145,33 @@ public class Composition {
         }
 
         Refs.chords.applyDuration(chords, new NormalDistribution(mean, deviation));
-        p = Refs.chords.convertChordsToPhrase(chords);
-        p.setTempo(tempo);
 
-        return p;
+        return chords;
+    }
+
+    private List<Chord> generateBass(List<Chord> chords) {
+        List<Chord> lowChords = new ArrayList<>();
+
+        //copy lowest note
+        for (Chord c : chords) {
+            Note lower = c.getNote(0);
+            Note bass = new Note();
+            Chord cn = new Chord();
+
+            if (c.getDuration() < 1.0) {
+                bass.setPitch(Pitches.REST);
+            } else {
+                bass.setPitch(lower.getPitch());
+                Mod.transpose(bass, (-2 * 12));
+            }
+
+            cn.setDuration(c.getDuration());
+            cn.add(bass);
+
+            lowChords.add(cn);
+        }
+
+        return lowChords;
     }
 
 }
