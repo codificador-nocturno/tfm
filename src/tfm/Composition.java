@@ -158,7 +158,7 @@ public class Composition {
             Note bass = new Note();
             Chord cn = new Chord();
 
-            if (c.getDuration() < 1.0) {
+            if (c.getDuration() < 0.9) {
                 bass.setPitch(Pitches.REST);
             } else {
                 bass.setPitch(lower.getPitch());
