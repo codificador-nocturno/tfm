@@ -86,6 +86,8 @@ public class Chord {
             newC.add(n.copy());
         }
 
+	newC.setDuration(duration);
+	
         return newC;
     }
 

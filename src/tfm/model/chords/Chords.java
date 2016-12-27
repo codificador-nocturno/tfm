@@ -57,7 +57,7 @@ public class Chords {
 
     public void transpose(List<Chord> chords, int i) {
         for (Chord c : chords) {
-            c.transpose(i);
+            c.transpose(i*12);
         }
     }
 
@@ -71,14 +71,13 @@ public class Chords {
         return chords;
     }
 
-    public Phrase convertChordsToPhrase(List<Chord> chords, double tempo) {
+    public Phrase convertChordsToPhrase(List<Chord> chords) {
         Phrase phrase = new Phrase();
 
         for (Chord c : chords) {
             phrase.addChord(c.getPitchesArray(), c.getDuration());
         }
 
-	phrase.setTempo(tempo);
         return phrase;
     }
 
