@@ -14,7 +14,7 @@ import java.util.Random;
  * ref:
  * http://www.javamex.com/tutorials/random_numbers/gaussian_distribution_2.shtml
  */
-public class NormalDistribution {
+public class NormalDistribution implements ProbDistribution{
 
     private double mean;
     private double deviation;
@@ -26,7 +26,8 @@ public class NormalDistribution {
         random = new Random();
     }
 
-    public double generateNextDuration() {
+    @Override
+    public double getNext() {
         return Math.abs((random.nextGaussian() * deviation) + mean);
     }
 

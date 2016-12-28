@@ -12,10 +12,9 @@ import jm.music.data.Part;
 import jm.music.data.Phrase;
 import jm.music.data.Score;
 import jm.util.Write;
-import tfm.Refs;
 import tfm.model.nrt.PCSNode;
 import tfm.model.pcst.PCSet;
-import tfm.utils.NormalDistribution;
+import tfm.utils.ProbDistribution;
 
 /**
  *
@@ -57,7 +56,7 @@ public class Chords {
 
     public void transpose(List<Chord> chords, int i) {
         for (Chord c : chords) {
-            c.transpose(i*12);
+            c.transpose(i * 12);
         }
     }
 
@@ -81,19 +80,25 @@ public class Chords {
         return phrase;
     }
 
-    public void applyDuration(List<Chord> chords, NormalDistribution nd) {
+    public void applyDuration(List<Chord> chords, ProbDistribution pd) {
         for (Chord c : chords) {
-            c.setDuration(nd.generateNextDuration());
+            c.setDuration(pd.getNext());
         }
     }
 
     public List<Chord> duplicate(List<Chord> chords) {
-	List<Chord> copy=new ArrayList<>();
-	
-	for(Chord c:chords){
-	    copy.add(c.duplicate());
-	}
-	
-	return copy;
+        List<Chord> copy = new ArrayList<>();
+
+        for (Chord c : chords) {
+            copy.add(c.duplicate());
+        }
+
+        return copy;
+    }
+
+    public void applyDuration(List<Chord> chords, double d) {
+        for (Chord c : chords) {
+            c.setDuration(d);
+        }
     }
 }

@@ -21,6 +21,7 @@ import tfm.model.markov.Matrix;
 import tfm.model.nrt.PCSNode;
 import tfm.model.pcst.PCSet;
 import tfm.utils.NormalDistribution;
+import tfm.utils.UniformDistribution;
 
 /**
  *
@@ -36,7 +37,7 @@ public class Composition {
     private Phrase guitarPhrase;
     private Phrase bassPhrase;
     private Score score;
-    private int TEMPO = 140;
+    private int TEMPO = 120;
 
     public Composition() throws Exception {
         matrices = new ArrayList<>();
@@ -65,13 +66,13 @@ public class Composition {
 
     private void create() throws Exception {
         //intro
-        add(generateChords(6, 16, 2.0, 4.0, 0), 1);
-        add(generateChords(19, 16, 2.0, 4.0, 0), 1);
+        add(generateChords(6, 16, 0.5, 1.0, 0), 1);
+        add(generateChords(19, 16, 0.5, 1.0, 0), 1);
 
         //A
         for (int i = 1; i < matrices.size(); i++) {
             if (matrices.get(i).getName().endsWith("_single")) {
-                List<Chord> chords = generateChords(i, 2, 0.5, 1.0, -1);
+                List<Chord> chords = generateChords(i, 5, 0.25, 0.5, -1);
                 add(chords, 4);
                 List<Chord> copy = Refs.chords.duplicate(chords);
                 Refs.chords.transpose(copy, +1);
@@ -80,13 +81,13 @@ public class Composition {
         }
 
         //bridge
-        add(generateChords(6, 16, 0.5, 1.0, 0), 1);
+        add(generateChords(6, 32, 0.25, 0.5, 0), 1);
 
         //A'
         for (int i = 1; i < matrices.size(); i++) {
             if (matrices.get(i).getName().endsWith("_multiple")) {
-                List<Chord> chords = generateChords(i, 3, 0.5, 1.0, -1);
-                add(chords, 3);
+                List<Chord> chords = generateChords(i, 5, 0.25, 0.5, -1);
+                add(chords, 4);
                 List<Chord> copy = Refs.chords.duplicate(chords);
                 Refs.chords.transpose(copy, +1);
                 add(copy, 4);
@@ -94,23 +95,21 @@ public class Composition {
         }
 
         //solo
-        add(generateChords(6, 32, 0.25, 0.5, +1), 1);
-        add(generateChords(19, 32, 0.25, 0.5, +1), 1);
+        add(generateChords(6, 64, 0.125, 0.25, +1), 1);
+        add(generateChords(19, 64, 0.125, 0.25, +1), 1);
 
         //B
-        for (int i = 1; i < matrices.size(); i++) {
-            if (i != 6 && i != 19) {
-                add(generateChords(i, 5, 0.5, 1.0, -1), 2);
-            }
-        }
+        int[] multiple = {2, 4, 7, 9, 11, 13, 15, 17, 20};
+        int bMatrix = new Random().nextInt(multiple.length);
+        add(generateChords(multiple[bMatrix], 511, 0.25, 0.5, -1), 1);
 
         //bridge
-        add(generateChords(19, 16, 0.5, 1.0, 0), 1);
+        add(generateChords(19, 32, 0.25, 0.5, 0), 1);
 
         //A
         for (int i = 1; i < matrices.size(); i++) {
             if (matrices.get(i).getName().endsWith("_single")) {
-                List<Chord> chords = generateChords(i, 2, 0.5, 1.0, -1);
+                List<Chord> chords = generateChords(i, 5, 0.25, 0.5, -1);
                 add(chords, 4);
                 List<Chord> copy = Refs.chords.duplicate(chords);
                 Refs.chords.transpose(copy, +1);
@@ -119,10 +118,18 @@ public class Composition {
         }
 
         //outro
-        add(generateChords(6, 16, 2.0, 4.0, 0), 1);
-        add(generateChords(19, 16, 2.0, 4.0, 0), 1);
+        add(generateChords(6, 16, 0.5, 1.0, 0), 1);
+        add(generateChords(19, 16, 0.5, 1.0, 0), 1);
+        
+        //end
+        add(generateChords(6, 2, 4.0, 4.5, 0), 1);
+        add(generateChords(19, 2, 4.0, 4.5, 0), 1);
+        
+        
 
-        write("instru-metal-code-1");
+        //generateDrums();
+
+        write("instru-metal-code-2");
     }
 
     private void loadMatrices() throws Exception {
@@ -206,6 +213,19 @@ public class Composition {
         return lowChords;
     }
 
+    private void generateDrums() {
+        //drums
+        Part drumsPart = new Part("Drums", 0, 9); // 9 = MIDI channel 10
+
+        int beats = (int) Math.ceil(guitarPhrase.getEndTime() / 4);
+
+        drumsPart.add(generateHat(beats));
+        drumsPart.add(generateKick(beats));
+        drumsPart.add(generateSnare(beats));
+
+        score.addPart(drumsPart);
+    }
+
     private Phrase generateHat(int length) {
         Phrase phrase = new Phrase(0.0);
 
@@ -214,8 +234,6 @@ public class Composition {
             Note note = new Note(42, 1);
             phrase.addNote(note);
         }
-        //Note note = new Note(46, Q); // open hi hat
-        //phrase.addNote(note);
 
         return phrase;
     }
@@ -224,10 +242,12 @@ public class Composition {
         // make bass drum
         Phrase phrase = new Phrase(0.0);
 
-        for (int i = 0; i < length * 4 / 2; i++) {
+        for (int i = 0; i < length; i++) {
             Note note = new Note(36, 1);
             phrase.addNote(note);
             Note rest = new Note(Pitches.REST, 1);
+            phrase.addNote(rest);
+            phrase.addNote(note);
             phrase.addNote(rest);
         }
 
@@ -238,23 +258,16 @@ public class Composition {
         // make snare drum
         Phrase phrase = new Phrase(0.0);
 
-        for (int i = 0; i < length * 4 / 2; i++) {
-            Note note = new Note(Pitches.REST, 1);
-            phrase.addNote(note);
-            Note rest = new Note(38, 1);
+        for (int i = 0; i < length; i++) {
+            Note rest = new Note(Pitches.REST, 1);
             phrase.addNote(rest);
+            Note note = new Note(38, 1);
+            phrase.addNote(note);
+            phrase.addNote(rest);
+            phrase.addNote(note);            
         }
 
         return phrase;
-    }
-
-    private void generateDrums() {
-        //drums
-        Part drumsPart = new Part("Drums", 0, 9); // 9 = MIDI channel 10
-        drumsPart.add(generateHat(100));
-        drumsPart.add(generateKick(100));
-        drumsPart.add(generateSnare(100));
-        score.addPart(drumsPart);
     }
 
     private void add(List<Chord> chords, int times) {
@@ -268,24 +281,5 @@ public class Composition {
 
     private void write(String name) {
         Write.midi(score, name + ".mid");
-    }
-
-    private void eachMatrix() throws Exception {
-        for (int i = 1; i < matrices.size(); i++) {
-            Composition c = new Composition();
-            c.matrix(i);
-        }
-    }
-
-    private void matrix(int i) {
-        int transposition = -1;
-
-        if (i == 6 || i == 19) {
-            transposition = 1;
-        }
-
-        add(generateChords(i, 256, 0.5, 1.0, transposition), 1);
-
-        Write.midi(score, "matrix_" + i + ".mid");
     }
 }
