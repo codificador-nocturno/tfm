@@ -20,8 +20,7 @@ import tfm.model.chords.Chord;
 import tfm.model.markov.Matrix;
 import tfm.model.nrt.PCSNode;
 import tfm.model.pcst.PCSet;
-import tfm.utils.NormalDistribution;
-import tfm.utils.UniformDistribution;
+import tfm.probability.NormalDistribution;
 
 /**
  *
@@ -30,14 +29,29 @@ import tfm.utils.UniformDistribution;
 public class Composition {
 
     public static void main(String[] args) throws Exception {
-        new Composition().create();
+        Composition c = new Composition();
+        c.create();
+        c.write("experimento-3");
     }
 
     private List<Matrix> matrices;
     private Phrase guitarPhrase;
     private Phrase bassPhrase;
     private Score score;
+    //drums
+    private Part drumsPart;
+    private Phrase hiHatPhrase;
+    private Phrase snarePhrase;
+    private Phrase kickPhrase;
+
     private int TEMPO = 120;
+    private double[] gallopTimes = {0.5, 0.25, 0.25, -0.5, 0.25, 0.25, 0.5, 0.25, 0.25, -0.5, 0.25, 0.25};
+    private double[] doubletimes = {0.25, 0.25, -1.5, 0.25, 0.25, -1.5};
+    private double[] sixteenTimes = {0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, -0.25, 0.25, 0.25, 0.25};
+    private double[] soloTimes = {0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, 0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25};
+    private double[] rockTimes = {1, -1, 1, -1};
+
+    private double[] durationArray;
 
     public Composition() throws Exception {
         matrices = new ArrayList<>();
@@ -61,75 +75,108 @@ public class Composition {
         guitarPart.setInstrument(ProgramChanges.DISTORTED_GUITAR);
         bassPart.setInstrument(ProgramChanges.ELECTRIC_BASS);
 
+        drumsPart = new Part("Drums", 0, 9); // 9 = MIDI channel 10
+        score.addPart(drumsPart);
+
+        hiHatPhrase = new Phrase();
+        snarePhrase = new Phrase();
+        kickPhrase = new Phrase();
+
+        drumsPart.add(hiHatPhrase);
+        drumsPart.add(snarePhrase);
+        drumsPart.add(kickPhrase);
+
         loadMatrices();
     }
 
     private void create() throws Exception {
-        //intro
-        add(generateChords(6, 16, 0.5, 1.0, 0), 1);
-        add(generateChords(19, 16, 0.5, 1.0, 0), 1);
+        durationArray = rockTimes;
+        //apertura
+        add(generateChords(19, durationArray.length, 0), true, false, false, 2);
+        //intro 1
+        add(generateChords(6, durationArray.length, 0), 4);
+        //intro 2
+        add(generateChords(19, durationArray.length, 0), 4);
+        //intro 3
+        add(generateChords(19, durationArray.length, 0), false, false, true, 2);
 
         //A
+        durationArray = gallopTimes;
         for (int i = 1; i < matrices.size(); i++) {
             if (matrices.get(i).getName().endsWith("_single")) {
-                List<Chord> chords = generateChords(i, 5, 0.25, 0.5, -1);
+                List<Chord> chords = generateChords(i, durationArray.length, -1);
                 add(chords, 4);
-                List<Chord> copy = Refs.chords.duplicate(chords);
-                Refs.chords.transpose(copy, +1);
-                add(copy, 4);
             }
         }
 
-        //bridge
-        add(generateChords(6, 32, 0.25, 0.5, 0), 1);
+        //Puente A1
+        add(generateChords(19, durationArray.length, 0), false, false, true, 2);
+        //Puente A2
+        durationArray = doubletimes;
+        add(generateChords(6, durationArray.length, 0), 4);
+        //Puente A3
+        add(generateChords(19, durationArray.length, 0), false, false, true, 2);
 
         //A'
+        durationArray = gallopTimes;
         for (int i = 1; i < matrices.size(); i++) {
             if (matrices.get(i).getName().endsWith("_multiple")) {
-                List<Chord> chords = generateChords(i, 5, 0.25, 0.5, -1);
-                add(chords, 4);
+                List<Chord> chords = generateChords(i, durationArray.length, -1);
+                add(chords, 2);
                 List<Chord> copy = Refs.chords.duplicate(chords);
                 Refs.chords.transpose(copy, +1);
-                add(copy, 4);
+                add(copy, 1);
+                add(chords, true, false, false, 1);
             }
         }
 
-        //solo
-        add(generateChords(6, 64, 0.125, 0.25, +1), 1);
-        add(generateChords(19, 64, 0.125, 0.25, +1), 1);
+        //Puente A'1
+        add(generateChords(19, durationArray.length, 0), false, false, true, 2);
+        durationArray = soloTimes;
+        //Solo 1
+        add(generateChords(6, durationArray.length, +1), 4);
+        //Solo 2
+        add(generateChords(6, durationArray.length, +1), 4);
+        durationArray = doubletimes;
+        //Puente A'2
+        add(generateChords(19, durationArray.length, 0), false, false, true, 2);
+        //Puente A'3
+        add(generateChords(19, durationArray.length, 0), false, true, false, 4);
 
         //B
+        durationArray = sixteenTimes;
         int[] multiple = {2, 4, 7, 9, 11, 13, 15, 17, 20};
         int bMatrix = new Random().nextInt(multiple.length);
-        add(generateChords(multiple[bMatrix], 511, 0.25, 0.5, -1), 1);
+        for (int i = 0; i < 48; i++) {
+            add(generateChords(multiple[bMatrix], durationArray.length, -1), 1);
+        }
 
-        //bridge
-        add(generateChords(19, 32, 0.25, 0.5, 0), 1);
+        //Puente B1
+        add(generateChords(19, durationArray.length, 0), false, false, true, 2);
+        //Puente B2
+        durationArray = doubletimes;
+        add(generateChords(19, durationArray.length, 0), 4);
+        //Puente B3
+        add(generateChords(19, durationArray.length, 0), false, false, true, 2);
 
         //A
+        durationArray = gallopTimes;
         for (int i = 1; i < matrices.size(); i++) {
             if (matrices.get(i).getName().endsWith("_single")) {
-                List<Chord> chords = generateChords(i, 5, 0.25, 0.5, -1);
-                add(chords, 4);
-                List<Chord> copy = Refs.chords.duplicate(chords);
-                Refs.chords.transpose(copy, +1);
-                add(copy, 4);
+                List<Chord> chords = generateChords(i, durationArray.length, -1);
+                add(chords, 2);
             }
         }
 
-        //outro
-        add(generateChords(6, 16, 0.5, 1.0, 0), 1);
-        add(generateChords(19, 16, 0.5, 1.0, 0), 1);
-        
-        //end
-        add(generateChords(6, 2, 4.0, 4.5, 0), 1);
-        add(generateChords(19, 2, 4.0, 4.5, 0), 1);
-        
-        
-
-        //generateDrums();
-
-        write("instru-metal-code-2");
+        //Outro 1
+        add(generateChords(19, durationArray.length, 0), false, false, true, 2);
+        durationArray = rockTimes;
+        //Outro 2
+        add(generateChords(6, durationArray.length, 0), 4);
+        //Outro 3
+        add(generateChords(19, durationArray.length, 0), 4);
+        //Cierre
+        add(generateChords(19, durationArray.length, 0), true, false, false, 2);
     }
 
     private void loadMatrices() throws Exception {
@@ -165,7 +212,25 @@ public class Composition {
         }
     }
 
+    private List<Chord> generateChords(int matrixNumber, int length, double duration, int transposition) {
+        List<Chord> chords = gen(matrixNumber, length, transposition);
+        Refs.chords.applyDuration(chords, duration);
+        return chords;
+    }
+
     private List<Chord> generateChords(int matrixNumber, int length, double mean, double deviation, int transposition) {
+        List<Chord> chords = gen(matrixNumber, length, transposition);
+        Refs.chords.applyDuration(chords, new NormalDistribution(mean, deviation));
+        return chords;
+    }
+
+    private List<Chord> generateChords(int matrixNumber, int length, int transposition) {
+        List<Chord> chords = gen(matrixNumber, length, transposition);
+        Refs.chords.applyDuration(chords, durationArray);
+        return chords;
+    }
+
+    private List<Chord> gen(int matrixNumber, int length, int transposition) {
         Matrix m = matrices.get(matrixNumber);
         List<Chord> chords;
 
@@ -176,14 +241,13 @@ public class Composition {
             chords = Refs.chords.convertSetsToChords(sets);
         } else {
             //operations
-            List<String> operations = m.generateSteps(length);
+            List<String> operations = m.generateSteps(length - 1);
             //from ops createSong tonnetz node list
             List<PCSNode> nodes = Refs.tonnetz.generateNodes(operations);
             //from nodes createSong list of chords
             chords = Refs.chords.convertNodesToChords(nodes);
         }
 
-        Refs.chords.applyDuration(chords, new NormalDistribution(mean, deviation));
         Refs.chords.transpose(chords, transposition);
 
         return chords;
@@ -198,11 +262,11 @@ public class Composition {
             Note bass = new Note(lower.getNote());
             Chord cn = new Chord();
 
-            if (c.getDuration() >= 0.5) {
-                Mod.transpose(bass, (-2 * 12));
-            } else {
-                bass.setPitch(Pitches.REST);
-            }
+            //if (c.getDuration() <= 0.25) {
+            Mod.transpose(bass, (-2 * 12));
+//	    } else {
+//		bass.setPitch(Pitches.REST);
+//	    }
 
             cn.setDuration(c.getDuration());
             cn.add(bass);
@@ -214,60 +278,37 @@ public class Composition {
     }
 
     private void generateDrums() {
-        //drums
-        Part drumsPart = new Part("Drums", 0, 9); // 9 = MIDI channel 10
-
-        int beats = (int) Math.ceil(guitarPhrase.getEndTime() / 4);
-
-        drumsPart.add(generateHat(beats));
-        drumsPart.add(generateKick(beats));
-        drumsPart.add(generateSnare(beats));
-
-        score.addPart(drumsPart);
+        generateHat();
+        generateKick();
+        generateSnare();
     }
 
-    private Phrase generateHat(int length) {
-        Phrase phrase = new Phrase(0.0);
-
+    private void generateHat() {
         // make hats
-        for (int i = 0; i < length * 4; i++) {
+        for (int i = 0; i < 4; i++) {
             Note note = new Note(42, 1);
-            phrase.addNote(note);
+            hiHatPhrase.addNote(note);
         }
-
-        return phrase;
     }
 
-    private Phrase generateKick(int length) {
+    private void generateKick() {
         // make bass drum
-        Phrase phrase = new Phrase(0.0);
-
-        for (int i = 0; i < length; i++) {
-            Note note = new Note(36, 1);
-            phrase.addNote(note);
-            Note rest = new Note(Pitches.REST, 1);
-            phrase.addNote(rest);
-            phrase.addNote(note);
-            phrase.addNote(rest);
+        for (int j = 0; j < durationArray.length; j++) {
+            if (durationArray[j] < 0.0) {
+                kickPhrase.addNote(new Note(Pitches.REST, Math.abs(durationArray[j])));
+            } else {
+                kickPhrase.addNote(new Note(36, durationArray[j]));
+            }
         }
-
-        return phrase;
     }
 
-    private Phrase generateSnare(int length) {
-        // make snare drum
-        Phrase phrase = new Phrase(0.0);
-
-        for (int i = 0; i < length; i++) {
-            Note rest = new Note(Pitches.REST, 1);
-            phrase.addNote(rest);
-            Note note = new Note(38, 1);
-            phrase.addNote(note);
-            phrase.addNote(rest);
-            phrase.addNote(note);            
-        }
-
-        return phrase;
+    private void generateSnare() {
+        Note rest = new Note(Pitches.REST, 1);
+        snarePhrase.addNote(rest);
+        Note note = new Note(38, 1);
+        snarePhrase.addNote(note);
+        snarePhrase.addNote(rest);
+        snarePhrase.addNote(note);
     }
 
     private void add(List<Chord> chords, int times) {
@@ -276,10 +317,40 @@ public class Composition {
             guitarPhrase.addNoteList(Refs.chords.convertChordsToPhrase(chords).getNoteList(), true);
             //bass
             bassPhrase.addNoteList(Refs.chords.convertChordsToPhrase(generateBass(chords)).getNoteList(), true);
+            //drums
+            generateDrums();
         }
     }
 
     private void write(String name) {
         Write.midi(score, name + ".mid");
+    }
+
+    private void add(List<Chord> chords, boolean guitar, boolean bass, boolean drums, int times) {
+
+        for (int i = 0; i < times; i++) {
+            //chords
+            if (guitar && !bass && !drums) {
+                guitarPhrase.addNoteList(Refs.chords.convertChordsToPhrase(chords).getNoteList(), true);
+                bassPhrase.addNote(new Note(Pitches.REST, 4.0));
+                hiHatPhrase.addNote(new Note(Pitches.REST, 4.0));
+                snarePhrase.addNote(new Note(Pitches.REST, 4.0));
+                kickPhrase.addNote(new Note(Pitches.REST, 4.0));
+            }
+
+            if (bass && !guitar && !drums) {
+                guitarPhrase.addNote(new Note(Pitches.REST, 4.0));
+                bassPhrase.addNoteList(Refs.chords.convertChordsToPhrase(generateBass(chords)).getNoteList(), true);
+                hiHatPhrase.addNote(new Note(Pitches.REST, 4.0));
+                snarePhrase.addNote(new Note(Pitches.REST, 4.0));
+                kickPhrase.addNote(new Note(Pitches.REST, 4.0));
+            }
+
+            if (drums && !guitar && !bass) {
+                guitarPhrase.addNote(new Note(Pitches.REST, 4.0));
+                bassPhrase.addNote(new Note(Pitches.REST, 4.0));
+                generateDrums();
+            }
+        }
     }
 }
